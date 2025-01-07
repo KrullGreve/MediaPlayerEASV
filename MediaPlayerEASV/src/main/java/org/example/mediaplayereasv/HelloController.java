@@ -18,6 +18,6 @@ public class HelloController {
 
     public void initialize(URL location, ResourceBundle resources)
     {
-        File mediaFolder = new File("src/main/resources/Music");
+        File mediaFolder = new File("src/main/Music");
     }
 }

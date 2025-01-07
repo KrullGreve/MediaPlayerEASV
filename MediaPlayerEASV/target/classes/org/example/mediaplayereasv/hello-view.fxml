@@ -6,7 +6,7 @@
 <?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
     <center>
         <MediaView fitHeight="200.0" fitWidth="200.0" BorderPane.alignment="BOTTOM_CENTER" />
     </center>
@@ -23,7 +23,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                     <children>
-                        <Button mnemonicParsing="false" text="▶" textAlignment="CENTER">
+                        <Button fx:id="onHelloButtonClick" mnemonicParsing="false" onAction="#onHelloButtonClick" text="▶" textAlignment="CENTER">
                             <font>
                                 <Font size="25.0" />
                             </font>
