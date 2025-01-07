@@ -6,10 +6,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
-/**
- *
- * @author tha
- */
+
 public class DB {
     private static Connection con;
     private static PreparedStatement ps;
@@ -37,20 +34,24 @@ public class DB {
      */
     static {
         Properties props = new Properties();
-        String fileName = "db.properties";
-        InputStream input;
-        try{
-            input = new FileInputStream(fileName);
+        try (InputStream input = DB.class.getClassLoader().getResourceAsStream("db.properties")) {
+            if (input == null) {
+                throw new RuntimeException("db.properties file not found in resources folder!");
+            }
             props.load(input);
-            port = props.getProperty("port","1433");
-            databaseName = props.getProperty("databaseName");
-            userName=props.getProperty("userName", "sa");
-            password=props.getProperty("password");
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            System.out.println("Database Ready");
 
-        }catch(Exception e){
-            System.err.println(e.getMessage());
+            port = props.getProperty("port", "1433");
+            databaseName = props.getProperty("databaseName");
+            userName = props.getProperty("userName", "sa");
+            password = props.getProperty("password");
+
+            System.out.println("Database properties loaded successfully!");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+        } catch (IOException e) {
+            System.err.println("Error loading database properties: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("SQL Server Driver not found!");
         }
     }
     private static void connect(){
@@ -196,6 +197,19 @@ public class DB {
             System.err.println(e.getMessage());
         } finally{
             disconnect();
+        }
+        return false;
+    }
+
+    public static boolean testConnection() {
+        try {
+            connect();
+            if (con != null && !con.isClosed()) {
+                disconnect();
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("Database connection failed: " + e.getMessage());
         }
         return false;
     }
