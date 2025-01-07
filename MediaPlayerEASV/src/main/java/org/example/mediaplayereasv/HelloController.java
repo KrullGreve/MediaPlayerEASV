@@ -17,8 +17,7 @@ public class HelloController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
 
-        // Set the initial directory using a relative path
-        // Assuming Music is in src/main/java
+        // Set the initial directory using a absolute path
         File musicFolder = new File("C:/temp/");
         if (musicFolder.exists() && musicFolder.isDirectory()) {
             fileChooser.setInitialDirectory(musicFolder);
