@@ -17,8 +17,15 @@ public class HelloController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
 
-        // Set the initial directory
-        fileChooser.setInitialDirectory(new File("C:\\Users\\mikco\\Desktop\\Skole\\Kode folder\\MediaPlayerEASV\\MediaPlayerEASV\\src\\main\\java\\Music"));
+        // Set the initial directory using a relative path
+        // Assuming Music is in src/main/java
+        File musicFolder = new File("C:/temp/");
+        if (musicFolder.exists() && musicFolder.isDirectory()) {
+            fileChooser.setInitialDirectory(musicFolder);
+            System.out.println("Music folder found at: " + musicFolder.getAbsolutePath());
+        } else {
+            System.out.println("Music folder not found.");
+        }
 
         // Show the file chooser dialog
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
