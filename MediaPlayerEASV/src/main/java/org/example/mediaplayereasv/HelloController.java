@@ -1,23 +1,63 @@
-package org.example.mediaplayereasv;
+package your.package.name;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.media.MediaView;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
+public class HelloController{
 
-public class HelloController {
     @FXML
-    private Label welcomeText;
+    private MediaView mvMainImage;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private Label myDuration;
 
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        File mediaFolder = new File("src/main/Music");
-    }
+    @FXML
+    private Slider mySliderDuration;
+
+    @FXML
+    private Button bntShuffel;
+
+    @FXML
+    private Button bntStop;
+
+    @FXML
+    private Button bntBack;
+
+    @FXML
+    private Button bntPlay;
+
+    @FXML
+    private Button bntNext;
+
+    @FXML
+    private Button bntRepeat;
+
+    @FXML
+    private Button bntMute;
+
+    @FXML
+    private Slider mySliderVolume;
+
+    @FXML
+    private ListView<String> lvPlayList;
+
+    @FXML
+    private ListView<String> lvPlayLists;
+
+    @FXML
+    private ComboBox<String> cbSearchBar;
+
+    @FXML
+    private Label myLabelTitel;
+
+    @FXML
+    private Label myLabelCurrentSong;
+
+    @FXML
+    private ImageView ivIcon;
 }
