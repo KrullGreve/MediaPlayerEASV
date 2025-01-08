@@ -59,18 +59,14 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvPlayList" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </VBox.margin>
-            </ListView>
+            <ListView fx:id="lvCurrentPlayList" prefHeight="509.0" prefWidth="200.0" />
          </children>
       </VBox>
    </right>
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvPlayLists" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
