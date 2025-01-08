@@ -24,4 +24,8 @@ public class HelloController {
             connectionStatus.setStyle("-fx-text-fill: red;");
         }
     }
+
+
+
+
 }

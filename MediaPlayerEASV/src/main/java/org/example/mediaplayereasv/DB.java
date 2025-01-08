@@ -34,7 +34,8 @@ public class DB {
      */
     static {
         Properties props = new Properties();
-        // InputStream is to read the db.properties file in resources - Remember to change it to your own properties
+        // InputStream is to read the db.properties file in resources -
+        // Remember to change the folder to your own properties
         try (InputStream input = DB.class.getClassLoader().getResourceAsStream("db.properties")) {
             if (input == null) {
                 throw new RuntimeException("db.properties file not found in resources folder!");
