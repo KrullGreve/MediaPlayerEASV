@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ea8384d-8ed7-4a7a-8477-a143cd5e7bb5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/Icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="6ea8384d-8ed7-4a7a-8477-a143cd5e7bb5" name="Changes" comment="Search button" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Updata" />
+        <entry key="$PROJECT_DIR$" value="UI_1.0" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,7 +50,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "UI__1.0",
+    "git-widget-placeholder": "Updata",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/sebas/IdeaProjects/MediaPlayerEASV/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv",
@@ -142,6 +139,7 @@
     <MESSAGE value="Basic controlls" />
     <MESSAGE value="Base design, controllers and fx:id's" />
     <MESSAGE value="Base design, controllers and fx:id's&#10;Update version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base design, controllers and fx:id's&#10;Update version" />
+    <MESSAGE value="Search button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Search button" />
   </component>
 </project>
