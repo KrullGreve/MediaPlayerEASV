@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Got Connection to the Database">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Documentation on methods">
       <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="DB_Connect-TFS" />
+        <entry key="$PROJECT_DIR$" value="Updata" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,7 +44,7 @@
   "keyToString": {
     "Application.HelloApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Updata",
+    "git-widget-placeholder": "Crud-TFS",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Champ/OneDrive/Desktop/IntelliJ Extra/sqljdbc4.jar",
     "node.js.detected.package.eslint": "true",
@@ -133,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736249555382</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Documentation on methods">
+      <option name="closed" value="true" />
+      <created>1736321644332</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736321644332</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +149,8 @@
     <MESSAGE value="Initialize - Adding folder reader" />
     <MESSAGE value="Commiting for update" />
     <MESSAGE value="Got Connection to the Database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got Connection to the Database" />
+    <MESSAGE value="Documentation on methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation on methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
