@@ -34,6 +34,7 @@ public class DB {
      */
     static {
         Properties props = new Properties();
+        // InputStream is to read the db.properties file in resources - Remember to change it to your own properties
         try (InputStream input = DB.class.getClassLoader().getResourceAsStream("db.properties")) {
             if (input == null) {
                 throw new RuntimeException("db.properties file not found in resources folder!");
@@ -201,6 +202,7 @@ public class DB {
         return false;
     }
 
+    // To test if you have connection to the database - Will be removed in a later build
     public static boolean testConnection() {
         try {
             connect();

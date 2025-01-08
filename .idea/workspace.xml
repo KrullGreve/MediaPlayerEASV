@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Commiting for update">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Got Connection to the Database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +31,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -46,15 +49,16 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Updata",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Champ/OneDrive/Desktop/IntelliJ Extra/sqljdbc4.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43218392",
+    "project.structure.side.proportion": "0.7491369",
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
@@ -139,7 +143,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="Initialize - Adding folder reader" />
     <MESSAGE value="Commiting for update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commiting for update" />
+    <MESSAGE value="Got Connection to the Database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got Connection to the Database" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

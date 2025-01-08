@@ -14,6 +14,7 @@ public class HelloController {
         checkDatabaseConnection();
     }
 
+    // Uses the top left label to show if you connected to the database
     private void checkDatabaseConnection() {
         if (DB.testConnection()) {
             connectionStatus.setText("✅ Database Connected!");
