@@ -86,7 +86,7 @@
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="connectionStatus" />
-            <ComboBox fx:id="cbSearchBar" prefWidth="150.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="cbSearchBar" onAction="#onHelloButtonClick" prefWidth="150.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>
