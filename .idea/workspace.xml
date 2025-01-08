@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ea8384d-8ed7-4a7a-8477-a143cd5e7bb5" name="Changes" comment="Search button" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Got Connection to the Database">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,34 +19,25 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="UI_1.0" />
+        <entry key="$PROJECT_DIR$" value="DB_Connect-TFS" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;KrullGreve&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/KrullGreve/MediaPlayerEASV.git&quot;,
-    &quot;accountId&quot;: &quot;b4fc5f1c-e761-44e4-93aa-c1c4ce9b0c79&quot;
-  }
-}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="2rFncJkEVOJYH2eyZLMcnzPsJQS" />
+  <component name="ProjectId" id="2rI7SSQvVIBhEdvoCQZycwKvlqV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,98 +45,116 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.HelloApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Updata",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/sebas/IdeaProjects/MediaPlayerEASV/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv",
-    "list.type.of.created.stylesheet": "CSS",
+    "last_opened_file_path": "C:/Users/Champ/OneDrive/Desktop/IntelliJ Extra/sqljdbc4.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "onboarding.tips.debug.path": "C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.7491369",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\sebas\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\org\example\mediaplayereasv" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Champ\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6ea8384d-8ed7-4a7a-8477-a143cd5e7bb5" name="Changes" comment="" />
-      <created>1736163768725</created>
+      <changelist id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="" />
+      <created>1736234734459</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1736163768725</updated>
-      <workItem from="1736163770017" duration="5543000" />
-      <workItem from="1736239312392" duration="21000" />
-      <workItem from="1736239342309" duration="91000" />
-      <workItem from="1736239442554" duration="8794000" />
-      <workItem from="1736320408452" duration="543000" />
-      <workItem from="1736320962033" duration="130000" />
-      <workItem from="1736321101738" duration="753000" />
-      <workItem from="1736321867048" duration="529000" />
+      <updated>1736234734459</updated>
+      <workItem from="1736234735514" duration="10110000" />
+      <workItem from="1736249360110" duration="107000" />
+      <workItem from="1736249474362" duration="305000" />
     </task>
-    <task id="LOCAL-00001" summary="Updata branch">
+    <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
-      <created>1736234941686</created>
+      <created>1736244880405</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1736234941686</updated>
+      <updated>1736244880405</updated>
     </task>
-    <task id="LOCAL-00002" summary="Basic controlls">
+    <task id="LOCAL-00002" summary="Initialize - Adding folder reader">
       <option name="closed" value="true" />
-      <created>1736239779548</created>
+      <created>1736245519707</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1736239779548</updated>
+      <updated>1736245519707</updated>
     </task>
-    <task id="LOCAL-00003" summary="Base design, controllers and fx:id's">
+    <task id="LOCAL-00003" summary="Commiting for update">
       <option name="closed" value="true" />
-      <created>1736245488428</created>
+      <created>1736249236725</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1736245488429</updated>
+      <updated>1736249236725</updated>
     </task>
-    <task id="LOCAL-00004" summary="Base design, controllers and fx:id's&#10;Update version">
+    <task id="LOCAL-00004" summary="Commiting for update">
       <option name="closed" value="true" />
-      <created>1736245566626</created>
+      <created>1736249507201</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1736245566626</updated>
+      <updated>1736249507201</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Commiting for update">
+      <option name="closed" value="true" />
+      <created>1736249555382</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736249555382</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updata branch" />
-    <MESSAGE value="Basic controlls" />
-    <MESSAGE value="Base design, controllers and fx:id's" />
-    <MESSAGE value="Base design, controllers and fx:id's&#10;Update version" />
-    <MESSAGE value="Search button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Search button" />
+    <MESSAGE value="init" />
+    <MESSAGE value="Initialize - Adding folder reader" />
+    <MESSAGE value="Commiting for update" />
+    <MESSAGE value="Got Connection to the Database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got Connection to the Database" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

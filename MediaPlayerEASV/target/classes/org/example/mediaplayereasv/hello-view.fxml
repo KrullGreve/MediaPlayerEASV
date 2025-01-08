@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
+    <center>
+        <MediaView fx:id="mvMainImage" fitHeight="500.0" fitWidth="500.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin></MediaView>
+    </center>
+    <bottom>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+            <Label alignment="CENTER" prefWidth="1000000.0" text="Current Song">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" text="Duration: 00/00" />
+                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
+                    <children>
+                        <Slider fx:id="mySliderDuration" HBox.hgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets left="15.0" right="15.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                  <Button fx:id="bntShuffel" mnemonicParsing="false" text="Shuffel" />
+                  <Button fx:id="bntStop" mnemonicParsing="false" text="Stop ¤" />
+                        <Button fx:id="bntBack" mnemonicParsing="false" text="Back &lt;&lt;" />
+                        <Button fx:id="bntPlay" mnemonicParsing="false" text="Play &gt;" textAlignment="CENTER">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="bntNext" mnemonicParsing="false" text="Next &gt;&gt;" />
+                  <Button fx:id="bntRepeat" mnemonicParsing="false" text="Repeat" />
+                  <Button fx:id="bntMute" mnemonicParsing="false" text="mute &lt;|)))" />
+                  <Slider fx:id="mySliderVolume" prefHeight="14.0" prefWidth="100.0" />
+                    </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="lvPlayList" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </ListView>
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="lvPlayLists" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </ListView>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="connectionStatus" />
+            <ComboBox fx:id="cbSearchBar" prefWidth="150.0" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>

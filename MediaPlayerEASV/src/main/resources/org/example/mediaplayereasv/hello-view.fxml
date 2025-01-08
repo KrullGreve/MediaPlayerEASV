@@ -7,7 +7,7 @@
 <?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
     <center>
         <MediaView fx:id="mvMainImage" fitHeight="500.0" fitWidth="500.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -96,6 +96,9 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="connectionStatus" />
+            <ComboBox fx:id="cbSearchBar" prefWidth="150.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>
