@@ -16,11 +16,6 @@ public class songSelection {
     private ListView<String> musicListView;
 
     @FXML
-    public void initialize() {
-        loadMusicFiles();
-    }
-
-    @FXML
     public void onHelloButtonClick() {
         StringBuilder message = new StringBuilder();
 

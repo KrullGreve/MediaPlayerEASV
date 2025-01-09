@@ -17,7 +17,6 @@ public class HelloController {
     @FXML private Label connectionStatus;
     @FXML private ListView<String> lvAllPlayLists;
     @FXML private ListView<String> lvCurrentPlayList;
-    @FXML private Button btnCreatePlaylist;
     @FXML private TextField tfPlaylistName;
 
     private MediaPlayer mediaPlayer;
