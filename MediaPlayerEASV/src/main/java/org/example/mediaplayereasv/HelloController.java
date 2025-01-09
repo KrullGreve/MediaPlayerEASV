@@ -5,14 +5,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.scene.control.ListView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 public class HelloController {
+
+    //region Variables
     @FXML
     private Label connectionStatus;
 
@@ -20,6 +25,8 @@ public class HelloController {
     private ListView<String> lvAllPlayLists;
     @FXML
     private ListView<String> lvCurrentPlayList;
+
+    //endregion
 
 
 
@@ -119,4 +126,3 @@ public class HelloController {
             }
         }
     }
-}
