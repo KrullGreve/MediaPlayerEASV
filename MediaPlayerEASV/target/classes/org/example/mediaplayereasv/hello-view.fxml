@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.mediaplayereasv.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button fx:id="onHelloButtonClick" text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
+    <center>
+        <MediaView fitHeight="200.0" fitWidth="200.0" BorderPane.alignment="BOTTOM_CENTER" />
+    </center>
+    <bottom>
+        <VBox prefHeight="108.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
+                    <children>
+                        <Slider HBox.hgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets left="15.0" right="15.0" />
+                    </padding>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onHelloButtonClick" text="▶" textAlignment="CENTER">
+                            <font>
+                                <Font size="25.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Label text="Label" />
+                  <Button mnemonicParsing="false" />
+                  <Slider />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </bottom>
+   <right>
+      <ListView fx:id="musicListView" onMouseClicked="#onSongSelected" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
