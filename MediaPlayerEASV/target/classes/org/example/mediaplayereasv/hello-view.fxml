@@ -66,11 +66,22 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvAllPlayLists" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" prefHeight="376.0" prefWidth="248.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </ListView>
+            <HBox prefHeight="88.0" prefWidth="278.0">
+               <children>
+                  <Button fx:id="btnCreatePlaylist" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#createPlaylist" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" text="-" />
+                  <TextField fx:id="tfPlaylistName" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </left>
@@ -84,9 +95,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+            <Label fx:id="myLabelTitel" text="Label" GridPane.halignment="CENTER" />
+            <ComboBox fx:id="cbSearchBar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button mnemonicParsing="false" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </GridPane.margin>
+            </Button>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="connectionStatus" />
-            <ComboBox fx:id="cbSearchBar" onAction="#onHelloButtonClick" prefWidth="150.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>
