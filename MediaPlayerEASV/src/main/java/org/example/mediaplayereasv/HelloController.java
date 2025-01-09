@@ -20,6 +20,7 @@ public class HelloController {
     @FXML private Button btnCreatePlaylist;
     @FXML private TextField tfPlaylistName;
 
+    // Calls to the service classes -
     private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
     private MediaPlayer mediaPlayer;

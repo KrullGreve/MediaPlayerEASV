@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class SongServ
 {
+    // Method to get All songs from our database
     public ArrayList<String> getAllSongs() {
         ArrayList<String> songs = new ArrayList<>();
         DB.selectSQL("SELECT Title, Artist FROM Songs");
