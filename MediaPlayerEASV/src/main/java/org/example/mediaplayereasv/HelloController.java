@@ -11,6 +11,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ public class HelloController {
     @FXML
     private ListView<String> lvCurrentPlayList;
 
+    @FXML
+    private Button btnCreatePlaylist;
+    @FXML
+    private TextField tfPlaylistName;
+
     //endregion
 
 
@@ -38,6 +44,44 @@ public class HelloController {
 
         loadAllSongs();
     }
+
+    private void loadPlaylists()
+    {
+        String sql = "SELECT PlaylistName FROM Playlists";
+        DB.selectSQL(sql);
+    }
+
+    // Method to Create a brand-new playlist
+    @FXML
+    void createPlaylist()
+    {
+        String playlistName = tfPlaylistName.getText().trim();
+        if (playlistName.isEmpty())
+        {
+            System.out.println("Playlist name is empty!");
+            return;
+        }
+
+        // Enters into the database
+        String sql = "INSERT INTO Playlists (PlaylistName) VALUES (?)";
+
+        try{
+            if(DB.insertSQL("INSERT INTO Playlists (PlaylistName) VALUES ('" + playlistName + "')"))
+            {
+                System.out.println("Playlist created successfully!" + playlistName);
+                lvAllPlayLists.getItems().add(playlistName);
+            }
+            else
+            {
+                System.out.println("Error creating playlist!");
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 
     // Loads all the songs from the current playlist in the right Listview
     private void loadAllSongs()
@@ -96,7 +140,7 @@ public class HelloController {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
 
-            // Set the initial directory using a absolute path
+            // Set the initial directory using an absolute path
             File musicFolder = new File("C:/temp/");
             if (musicFolder.exists() && musicFolder.isDirectory()) {
                 fileChooser.setInitialDirectory(musicFolder);

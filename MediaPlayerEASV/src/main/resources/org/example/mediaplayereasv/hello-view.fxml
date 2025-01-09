@@ -66,11 +66,16 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvAllPlayLists" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" prefHeight="376.0" prefWidth="248.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </ListView>
+            <TextField fx:id="tfPlaylistName" />
+            <Button fx:id="btnCreatePlaylist" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#createPlaylist" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font></Button>
          </children>
       </VBox>
    </left>
