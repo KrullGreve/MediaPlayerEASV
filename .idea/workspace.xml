@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Filechooser on hello controller.&#10; can be moved">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/DB.class" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/DB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Music Filepath Done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,10 +20,15 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="DB_Connect-TFS" />
+        <entry key="$PROJECT_DIR$" value="Music-Filepath" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_HelloController.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_HelloController.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp__HelloController.class" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -47,34 +42,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Updata",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mikco/Documents/extra/sqljdbc4.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.7491369",
-    "settings.editor.selected.configurable": "configurable.group.build",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Updata&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mikco/Documents/extra/sqljdbc4.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.7491369&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mikco\Desktop\Skole\Kode folder\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\Images" />
       <recent name="C:\Users\Champ\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -137,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736249555382</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Music Filepath Done">
+      <option name="closed" value="true" />
+      <created>1736417761242</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736417761242</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,7 +156,9 @@
     <MESSAGE value="Commiting for update" />
     <MESSAGE value="Got Connection to the Database" />
     <MESSAGE value="Filechooser on hello controller.&#10; can be moved" />
-    <option name="LAST_COMMIT_MESSAGE" value="Filechooser on hello controller.&#10; can be moved" />
+    <MESSAGE value="Song Selecter" />
+    <MESSAGE value="Music Filepath Done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Music Filepath Done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
