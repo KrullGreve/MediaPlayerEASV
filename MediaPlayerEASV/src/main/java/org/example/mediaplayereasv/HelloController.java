@@ -1,17 +1,70 @@
 package org.example.mediaplayereasv;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 
 public class HelloController {
+    @FXML
+    private Label connectionStatus;
 
 
+    @FXML
+    public void initialize() {
+        checkDatabaseConnection();
+    }
 
-}
+    // Uses the top left label to show if you connected to the database
+    private void checkDatabaseConnection() {
+        if (DB.testConnection()) {
+            connectionStatus.setText("✅ Database Connected!");
+            connectionStatus.setStyle("-fx-text-fill: green;");
+        } else {
+            connectionStatus.setText("❌ Connection Failed!");
+            connectionStatus.setStyle("-fx-text-fill: red;");
+        }
+    }
+
+        private MediaPlayer mediaPlayer;
+
+        @FXML
+        private void musicFinder(ActionEvent event) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+
+            // Set the initial directory using a absolute path
+            File musicFolder = new File("C:/temp/");
+            if (musicFolder.exists() && musicFolder.isDirectory()) {
+                fileChooser.setInitialDirectory(musicFolder);
+                System.out.println("Music folder found at: " + musicFolder.getAbsolutePath());
+            } else {
+                System.out.println("Music folder not found.");
+            }
+
+            // Show the file chooser dialog
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            File selectedFile = fileChooser.showOpenDialog(stage);
+
+            if (selectedFile != null) {
+                System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+                // Initialize and play the MediaPlayer
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                    mediaPlayer.dispose();
+                }
+
+                Media media = new Media(selectedFile.toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+            } else {
+                System.out.println("File selection cancelled.");
+            }
+        }
+    }
