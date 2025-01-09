@@ -20,14 +20,15 @@ public class HelloController {
     @FXML private Button btnCreatePlaylist;
     @FXML private TextField tfPlaylistName;
 
-    // Calls to the service classes -
+    private MediaPlayer mediaPlayer;
+    // Calls to the service classes
     private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
-    private MediaPlayer mediaPlayer;
+
 
     @FXML
     public void initialize() {
-        checkDatabaseConnection();
+        checkDatabaseConnection(); // Calls the method to check connection - Can be removed eventually
 
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
@@ -58,8 +59,8 @@ public class HelloController {
         } else {
             System.out.println("Error creating playlist!");
         }
+        tfPlaylistName.clear();
     }
-
 
     // Handles the playlist selected on the left Listview and shows the songs on the right Listview
     @FXML
@@ -68,6 +69,36 @@ public class HelloController {
         if (selectedPlaylist != null) {
             System.out.println("Selected playlist: " + selectedPlaylist);
         }
+    }
+
+
+    @FXML
+    private void deleteSelectedPlaylist() {
+        // Get the selected playlist from the ListView
+        String selectedPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
+
+        // Ensure a playlist is selected
+        if (selectedPlaylist == null) {
+            showAlert("Error", "No playlist selected. Please select a playlist to delete.");
+            return;
+        }
+
+        // Try to delete the selected playlist
+        boolean isDeleted = playlistService.deletePlaylist(selectedPlaylist);
+
+        // Check the result and provide feedback to the user
+        if (isDeleted) {
+            showAlert("Success", "Playlist '" + selectedPlaylist + "' was deleted successfully.");
+            refreshPlaylists(); // Calls refresh method
+        } else {
+            showAlert("Error", "Failed to delete the selected playlist. Please try again.");
+        }
+    }
+
+    // Refreshes the playlist, so the deleted or added playlists are shown correctly
+    private void refreshPlaylists() {
+        // Reload the playlists from the database after deletion
+        lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
 
     // Checks if you are connected to the database - Will be removed later
@@ -107,4 +138,14 @@ public class HelloController {
             mediaPlayer.play();
         }
     }
+
+    // Helper method to show simple errors as alerts
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

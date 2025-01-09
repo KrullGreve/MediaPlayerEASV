@@ -71,14 +71,17 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </ListView>
-            <HBox prefHeight="88.0" prefWidth="278.0">
+            <HBox alignment="CENTER" prefHeight="88.0" prefWidth="278.0">
                <children>
                   <Button fx:id="btnCreatePlaylist" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#createPlaylist" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Button>
-                  <Button maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" text="-" />
+                  <Button fx:id="btnDelete" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#deleteSelectedPlaylist" prefHeight="40.0" prefWidth="40.0" text="-">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font></Button>
                   <TextField fx:id="tfPlaylistName" />
                </children>
             </HBox>
