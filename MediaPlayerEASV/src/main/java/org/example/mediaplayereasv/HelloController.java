@@ -24,6 +24,7 @@ public class HelloController {
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
+    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
 
     private MediaPlayer mediaPlayer;
     // Calls to the service classes
@@ -170,7 +171,7 @@ public class HelloController {
     }
 
     @FXML
-    private void createPlaylist()
+    private void onAddPlaylist()
     {
         String playlistName = tfPlaylistName.getText().trim();
         if (playlistName.isEmpty()) {
@@ -185,6 +186,53 @@ public class HelloController {
             System.out.println("Error creating playlist!");
         }
         tfPlaylistName.clear();
+    }
+
+    @FXML
+    private void onAddPlaylistClicked()
+    {
+        // Hides the plus and minus buttons
+        btnAddPlaylist.setVisible(false);
+        btnDeletePlaylist.setVisible(false);
+
+        // Show text field and confirm/cancel buttons
+        tfPlaylistName.setVisible(true);
+        btnConfirmPlaylist.setVisible(true);
+        btnCancelPlaylist.setVisible(true);
+
+        // Clears the text field
+        tfPlaylistName.clear();
+    }
+
+    @FXML
+    private void onConfirmPlaylist()
+    {
+        String playlistName = tfPlaylistName.getText().trim();
+
+        if (playlistName.isEmpty())
+        {
+            showAlert("Error", "Playlist name is empty!");
+            return;
+        }
+
+        if (playlistService.getAllPlaylists().contains(playlistName))
+        {
+            showAlert("Error", "Playlist already exists!");
+        }
+
+        else
+        {
+            if (playlistService.createPlaylist(playlistName))
+            {
+                showAlert("Success", "Playlist created successfully: " + playlistName);
+                lvAllPlayLists.getItems().add(playlistName);
+            }
+            else
+            {
+                showAlert("Error", "Failed to create playlist!");
+            }
+        }
+
     }
 
     // Handles the playlist selected on the left Listview and shows the songs on the right Listview

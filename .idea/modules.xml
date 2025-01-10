@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/MediaPlayerEASV.iml" filepath="$PROJECT_DIR$/.idea/MediaPlayerEASV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MediaPlayerEASV/MediaPlayerEASV.iml" filepath="$PROJECT_DIR$/MediaPlayerEASV/MediaPlayerEASV.iml" />
     </modules>
   </component>
 </project>
