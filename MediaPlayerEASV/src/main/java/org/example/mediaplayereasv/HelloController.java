@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
-
-
 public class HelloController {
 
     @FXML private Label connectionStatus;
@@ -27,6 +25,7 @@ public class HelloController {
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
 
     private MediaPlayer mediaPlayer;
+
     // Calls to the service classes
     private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
@@ -171,24 +170,6 @@ public class HelloController {
     }
 
     @FXML
-    private void onAddPlaylist()
-    {
-        String playlistName = tfPlaylistName.getText().trim();
-        if (playlistName.isEmpty()) {
-            System.out.println("Playlist name is empty!");
-            return;
-        }
-
-        if (playlistService.createPlaylist(playlistName)) {
-            System.out.println("Playlist created successfully: " + playlistName);
-            lvAllPlayLists.getItems().add(playlistName);
-        } else {
-            System.out.println("Error creating playlist!");
-        }
-        tfPlaylistName.clear();
-    }
-
-    @FXML
     private void onAddPlaylistClicked()
     {
         // Hides the plus and minus buttons
@@ -220,33 +201,40 @@ public class HelloController {
             showAlert("Error", "Playlist already exists!");
         }
 
+        if (playlistService.createPlaylist(playlistName))
+        {
+            showAlert("Success", "Playlist created successfully: " + playlistName);
+            lvAllPlayLists.getItems().add(playlistName);
+        }
         else
         {
-            if (playlistService.createPlaylist(playlistName))
-            {
-                showAlert("Success", "Playlist created successfully: " + playlistName);
-                lvAllPlayLists.getItems().add(playlistName);
-            }
-            else
-            {
-                showAlert("Error", "Failed to create playlist!");
-            }
+            showAlert("Error", "Failed to create playlist!");
         }
-
+        resetPlaylistUi();
     }
 
-    // Handles the playlist selected on the left Listview and shows the songs on the right Listview
+    // Resets UI when you Cancel
     @FXML
-    private void handlePlaylistSelected() {
-        String selectedPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
-        if (selectedPlaylist != null) {
-            System.out.println("Selected playlist: " + selectedPlaylist);
-        }
+    private void onCancelPlaylist()
+    {
+        resetPlaylistUi();
     }
 
+    // Resets the UI back to our default
+    private void resetPlaylistUi()
+    {
+        btnAddPlaylist.setVisible(true);
+        btnDeletePlaylist.setVisible(true);
+
+        tfPlaylistName.setVisible(false);
+        btnConfirmPlaylist.setVisible(false);
+        btnCancelPlaylist.setVisible(false);
+
+        tfPlaylistName.clear();
+    }
 
     @FXML
-    private void deleteSelectedPlaylist() {
+    private void onDeletePlaylistClicked() {
         // Get the selected playlist from the ListView
         String selectedPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
 
@@ -256,16 +244,11 @@ public class HelloController {
             return;
         }
 
-        // Try to delete the selected playlist
-        boolean isDeleted = playlistService.deletePlaylist(selectedPlaylist);
+        btnAddPlaylist.setVisible(false);
+        btnDeletePlaylist.setVisible(false);
 
-        // Check the result and provide feedback to the user
-        if (isDeleted) {
-            showAlert("Success", "Playlist '" + selectedPlaylist + "' was deleted successfully.");
-            refreshPlaylists(); // Calls refresh method
-        } else {
-            showAlert("Error", "Failed to delete the selected playlist. Please try again.");
-        }
+        btnConfirmPlaylist.setVisible(true);
+        btnCancelPlaylist.setVisible(true);
     }
 
     // Refreshes the playlist, so the deleted or added playlists are shown correctly

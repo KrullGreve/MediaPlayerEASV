@@ -66,12 +66,12 @@
             </ListView>
             <HBox alignment="CENTER" prefHeight="88.0" prefWidth="278.0">
                <children>
-                  <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylist" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                  <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeleteSelectedPlaylist" prefHeight="40.0" prefWidth="40.0" text="-">
+                  <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>

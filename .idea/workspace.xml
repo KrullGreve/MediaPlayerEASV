@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Merging with Update - bugfixing">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/DB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/PlaylistServ.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/SongServ.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/songSelection.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,18 +29,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "TobiasFalck"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;TobiasFalck&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/KrullGreve/MediaPlayerEASV.git",
-    "accountId": "fd1338ce-02a7-49a4-9b16-8f6f33b56500"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KrullGreve/MediaPlayerEASV.git&quot;,
+    &quot;accountId&quot;: &quot;fd1338ce-02a7-49a4-9b16-8f6f33b56500&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_HelloController.class" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_HelloController.class" root0="FORCE_HIGHLIGHTING" />
@@ -62,37 +53,39 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2rI7SSQvVIBhEdvoCQZycwKvlqV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Crud-TFS",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mikco/Documents/extra/sqljdbc4.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.7491369",
-    "settings.editor.selected.configurable": "configurable.group.build",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Crud-TFS&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mikco/Documents/extra/sqljdbc4.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Champ/IdeaProjects/MediaPlayerEASV/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.7491369&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlserver"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlserver&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\mikco\Desktop\Skole\Kode folder\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\Images" />
@@ -186,7 +179,6 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="Initialize - Adding folder reader" />
     <MESSAGE value="Commiting for update" />
     <MESSAGE value="Got Connection to the Database" />
@@ -194,7 +186,9 @@
     <MESSAGE value="Song Selecter" />
     <MESSAGE value="Music Filepath Done" />
     <MESSAGE value="Merging with Update - bugfixing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merging with Update - bugfixing" />
+    <MESSAGE value="Confirm/cancel Button function" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
