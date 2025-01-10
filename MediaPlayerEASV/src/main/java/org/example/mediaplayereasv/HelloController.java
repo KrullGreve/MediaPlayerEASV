@@ -1,16 +1,20 @@
 package org.example.mediaplayereasv;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.event.ActionEvent;
-import javafx.scene.media.Media;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class HelloController {
 
@@ -30,18 +34,96 @@ public class HelloController {
         checkDatabaseConnection(); // Calls the method to check connection - Can be removed eventually
 
         // Set default playlist on the right Listview
-        lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
+        lvAllPlayLists.setItems(FXCollections.observableArrayList());
 
         loadPlaylists();
-        loadAllSongs();
+        loadSongs();
+    }
+
+    void loadSongs() {
+        // Get song names from the database
+        var databaseSongs = songService.getAllSongs();
+
+        if (databaseSongs == null || databaseSongs.isEmpty()) {
+            System.out.println("No songs found in database.");
+            return; // Stop execution if no songs are found
+        }
+
+        // Get the Music folder URL
+        URL musicFolderUrl = getClass().getResource("/Music");
+
+        if (musicFolderUrl != null) {
+            try {
+                File musicFolder = Paths.get(musicFolderUrl.toURI()).toFile();
+
+                if (musicFolder.exists() && musicFolder.isDirectory()) {
+                    File[] musicFiles = musicFolder.listFiles();
+
+                    if (musicFiles != null) {
+                        // Convert music file names into a Set for quick lookup
+                        HashSet<String> availableMusicFiles = new HashSet<>();
+                        for (File file : musicFiles) {
+                            if (file.isFile() && file.getName().endsWith(".mp3")) {
+                                availableMusicFiles.add(file.getName()); // Store actual filenames
+                            }
+                        }
+
+                        // Create a list of songs that exist in both the database and filesystem
+                        ArrayList<String> validSongs = new ArrayList<>();
+                        for (String song : databaseSongs) {
+                            String[] parts = song.split(" - ", 2); // Split by " - ", only once
+                            String titleOnly = parts[0].trim(); // Extract only the song title
+                            String expectedFileName = titleOnly + ".mp3"; // Expected filename format
+
+                            if (availableMusicFiles.contains(expectedFileName)) {
+                                validSongs.add(song); // Add "Title - Artist" to the ListView
+                            } else {
+                                System.out.println("Skipping song (not found): " + expectedFileName);
+                            }
+                        }
+
+                        System.out.println("Valid songs being added to ListView: " + validSongs); // Debugging
+                        Platform.runLater(() -> {
+                            lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
+                            lvCurrentPlayList.refresh();
+                        });
+
+                        if (validSongs.isEmpty()) {
+                            System.out.println("No valid songs to add to ListView.");
+                        }
+                    }
+                }
+            } catch (URISyntaxException e) {
+                System.out.println("Error loading music files: " + e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    public void onSongSelected(MouseEvent event) {
+        String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+        if (selectedSong != null) {
+            try {
+                String titleOnly = selectedSong.split(" - ")[0];
+
+                URL songUrl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                if (songUrl != null) {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.stop(); // Stop any currently playing song
+                    }
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                    mediaPlayer.play();
+                } else {
+                    System.out.println("Song file not found: " + titleOnly);
+                }
+            } catch (URISyntaxException e) {
+                System.out.println("Error playing song: " + e.getMessage());
+            }
+        }
     }
 
     private void loadPlaylists() {
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
-    }
-
-    private void loadAllSongs() {
-        lvCurrentPlayList.setItems(FXCollections.observableArrayList(songService.getAllSongs()));
     }
 
     @FXML
@@ -111,34 +193,7 @@ public class HelloController {
         }
     }
 
-    @FXML
-    private void musicFinder(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Music File");
-
-        File musicFolder = new File("C:/temp/");
-        if (musicFolder.exists() && musicFolder.isDirectory()) {
-            fileChooser.setInitialDirectory(musicFolder);
-        }
-
-        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        if (selectedFile != null) {
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-                mediaPlayer.dispose();
-            }
-
-            Media media = new Media(selectedFile.toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        }
-    }
-
-    // Helper method to show simple errors as alerts
+    // Helper method to show simple errors as alerts in scene builder instead of the console
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -146,5 +201,4 @@ public class HelloController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

@@ -13,10 +13,10 @@ import java.nio.file.Paths;
 
 public class songSelection {
     @FXML
-    private ListView<String> musicListView;
+    private ListView<String> lvCurrentPlaylist;
 
     @FXML
-    public void onHelloButtonClick() {
+    public void musicFinder() {
         StringBuilder message = new StringBuilder();
 
         URL musicFolderUrl = getClass().getResource("/Music");
@@ -53,7 +53,7 @@ public class songSelection {
         alert.showAndWait();
     }
 
-    private void loadMusicFiles() {
+    void loadMusicFiles() {
         URL musicFolderUrl = getClass().getResource("/Music");
         if (musicFolderUrl != null) {
             try {
@@ -66,7 +66,7 @@ public class songSelection {
                         for (File file : musicFiles) {
                             if (file.isFile() && file.getName().endsWith(".mp3")) {
                                 // Add file names to the ListView
-                                musicListView.getItems().add(file.getName());
+                                lvCurrentPlaylist.getItems().add(file.getName());
                             }
                         }
                     }
@@ -79,7 +79,7 @@ public class songSelection {
 
     @FXML
     public void onSongSelected(MouseEvent event) {
-        String selectedSong = musicListView.getSelectionModel().getSelectedItem();
+        String selectedSong = lvCurrentPlaylist.getSelectionModel().getSelectedItem();
         if (selectedSong != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Song Selected");

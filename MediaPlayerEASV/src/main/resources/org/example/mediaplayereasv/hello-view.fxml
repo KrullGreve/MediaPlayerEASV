@@ -59,7 +59,7 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvCurrentPlayList" prefHeight="509.0" prefWidth="200.0" />
+            <ListView fx:id="lvCurrentPlayList" onMouseClicked="#onSongSelected" prefHeight="509.0" prefWidth="200.0" />
          </children>
       </VBox>
    </right>
