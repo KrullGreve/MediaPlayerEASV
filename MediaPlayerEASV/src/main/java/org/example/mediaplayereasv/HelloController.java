@@ -4,16 +4,17 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+
+
 
 
 public class HelloController {
@@ -22,11 +23,13 @@ public class HelloController {
     @FXML private ListView<String> lvAllPlayLists;
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
+    @FXML private ImageView ivMainImage;
 
     private MediaPlayer mediaPlayer;
     // Calls to the service classes
     private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
+
 
 
     @FXML
@@ -40,6 +43,7 @@ public class HelloController {
         loadSongs();
     }
 
+    // Loads songs from the database and matches them with the music files
     void loadSongs() {
         // Get song names from the database
         var databaseSongs = songService.getAllSongs();
@@ -119,15 +123,55 @@ public class HelloController {
             } catch (URISyntaxException e) {
                 System.out.println("Error playing song: " + e.getMessage());
             }
+
+            // Load a random image from the Images folder
+            try {
+                File imagesFolder = new File(getClass().getResource("/Images").toURI());
+
+                if (imagesFolder.exists() && imagesFolder.isDirectory()) {
+                    File[] imageFiles = imagesFolder.listFiles(file -> file.isFile() && isImageFile(file.getName()));
+
+                    if (imageFiles != null && imageFiles.length > 0) {
+                        // Select a random image
+                        File randomImage = imageFiles[(int) (Math.random() * imageFiles.length)];
+
+                        // Load the random image
+                        String imagePath = randomImage.toURI().toString();
+                        ivMainImage.setImage(new javafx.scene.image.Image(imagePath));
+                    } else {
+                        System.err.println("No image files found in the Images folder. Using placeholder.");
+                        ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
+                    }
+                } else {
+                    System.err.println("Images folder not found. Using placeholder.");
+                    ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
+                }
+            } catch (Exception e) {
+                System.err.println("Error loading random image: " + e.getMessage());
+                ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
+            }
+
+            ivMainImage.setFitWidth(300); // Set to desired width
+            ivMainImage.setFitHeight(200); // Set to desired height
+
+            // Preserve the aspect ratio
+            ivMainImage.setPreserveRatio(true);
         }
     }
 
+    private boolean isImageFile(String fileName) {
+        String lowerCaseName = fileName.toLowerCase();
+        return lowerCaseName.endsWith(".jpg") || lowerCaseName.endsWith(".png") || lowerCaseName.endsWith(".jpeg");
+    }
+
+    // Loads our playlists into the listview
     private void loadPlaylists() {
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
 
     @FXML
-    private void createPlaylist() {
+    private void createPlaylist()
+    {
         String playlistName = tfPlaylistName.getText().trim();
         if (playlistName.isEmpty()) {
             System.out.println("Playlist name is empty!");
