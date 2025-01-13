@@ -59,23 +59,33 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvAllPlayLists" prefHeight="376.0" prefWidth="248.0" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" editable="true" prefHeight="376.0" prefWidth="248.0" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </ListView>
             <HBox alignment="CENTER" prefHeight="88.0" prefWidth="278.0">
                <children>
-                  <Button fx:id="btnCreatePlaylist" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#createPlaylist" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                  <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDelete" maxHeight="40.0" maxWidth="40.0" mnemonicParsing="false" onAction="#deleteSelectedPlaylist" prefHeight="40.0" prefWidth="40.0" text="-">
+                  <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font></Button>
-                  <TextField fx:id="tfPlaylistName" />
+                  <TextField fx:id="tfPlaylistName" promptText="Enter Playlist Name" visible="false" />
+                  <Button fx:id="btnConfirmPlaylist" alignment="CENTER" layoutX="33.0" layoutY="32.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onConfirmPlaylist" prefHeight="40.0" prefWidth="40.0" text="✔" textAlignment="CENTER" visible="false" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelPlaylist" layoutX="54.0" layoutY="32.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onCancelPlaylist" prefHeight="40.0" prefWidth="40.0" text="❌" visible="false">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </HBox>
          </children>

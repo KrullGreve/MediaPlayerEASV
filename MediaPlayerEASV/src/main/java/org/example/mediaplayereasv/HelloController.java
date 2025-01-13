@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 
+
 public class HelloController {
 
-    @FXML private Label connectionStatus;
     @FXML private ListView<String> lvAllPlayLists;
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
@@ -27,23 +27,46 @@ public class HelloController {
     private MediaPlayer mediaPlayer;
 
     // Calls to the service classes
-    private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
+    private PlaylistServ playlistService = new PlaylistServ();
+
+    // Stores the Deletion of playlists
+    private String pendingDeletePlaylist = null;
 
 
 
     @FXML
     public void initialize() {
-        checkDatabaseConnection(); // Calls the method to check connection - Can be removed eventually
-
         // Set default playlist on the right Listview
-        lvAllPlayLists.setItems(FXCollections.observableArrayList());
+        lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
         loadPlaylists();
         loadSongs();
     }
 
-    // Loads songs from the database and matches them with the music files
+
+    /**
+     * Loads songs from the database and cross-checks them with available music files in the application's "Music" folder.
+     *
+     * This method retrieves all song titles and corresponding artist names from the database using the `songService.getAllSongs()` method.
+     * Each song is expected to be in the format "Title - Artist".
+     * Subsequently, it checks if these songs correspond to actual .mp3 files located in the "Music" folder of the application.
+     * Only songs with matching .mp3 files are added to the application's current playlist (`lvCurrentPlayList`).
+     *
+     * Key Steps:
+     * - Retrieves song data from the database.
+     * - Locates the "Music" folder in the application's resources and retrieves all .mp3 files within it.
+     * - Matches database song entries with the actual .mp3 files. If a match is found, the song is considered valid.
+     * - Updates the ListView (`lvCurrentPlayList`) with valid songs using the JavaFX `Platform.runLater()` method.
+     * - Logs invalid or missing songs to the console for debugging purposes.
+     *
+     * Error Handling:
+     * - If the database contains no songs, a message is printed, and the method exits.
+     * - Handles errors related to URI syntax when accessing the music folder.
+     *
+     * Debugging:
+     * - Outputs messages to the console for scenarios such as missing songs (no matching files in the folder), empty valid song lists, or errors accessing the music folder.
+     */
     void loadSongs() {
         // Get song names from the database
         var databaseSongs = songService.getAllSongs();
@@ -169,6 +192,24 @@ public class HelloController {
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
 
+    /**
+     * Handles the action when the "Add Playlist" button is clicked.
+     *
+     * This method updates the user interface to initiate the process of creating a new playlist.
+     * It hides the "Add" and "Delete" playlist buttons and displays the text field for entering
+     * the playlist name along with the "Confirm" and "Cancel" buttons. The text field is also
+     * cleared to ensure no pre-existing content is displayed.
+     *
+     * Key UI Changes:
+     * - Hides the "Add Playlist" button.
+     * - Hides the "Delete Playlist" button.
+     * - Displays the playlist name text field.
+     * - Displays the "Confirm" button.
+     * - Displays the "Cancel" button.
+     * - Clears the content of the playlist name text field.
+     *
+     * This method prepares the UI for the user to input the name for a new playlist.
+     */
     @FXML
     private void onAddPlaylistClicked()
     {
@@ -185,43 +226,15 @@ public class HelloController {
         tfPlaylistName.clear();
     }
 
-    @FXML
-    private void onConfirmPlaylist()
-    {
-        String playlistName = tfPlaylistName.getText().trim();
 
-        if (playlistName.isEmpty())
-        {
-            showAlert("Error", "Playlist name is empty!");
-            return;
-        }
-
-        if (playlistService.getAllPlaylists().contains(playlistName))
-        {
-            showAlert("Error", "Playlist already exists!");
-        }
-
-        if (playlistService.createPlaylist(playlistName))
-        {
-            showAlert("Success", "Playlist created successfully: " + playlistName);
-            lvAllPlayLists.getItems().add(playlistName);
-        }
-        else
-        {
-            showAlert("Error", "Failed to create playlist!");
-        }
-        resetPlaylistUi();
-    }
-
-    // Resets UI when you Cancel
-    @FXML
-    private void onCancelPlaylist()
-    {
-        resetPlaylistUi();
-    }
-
-    // Resets the UI back to our default
-    private void resetPlaylistUi()
+    /**
+     * Resets the playlist-related UI components to their default state,
+     * like showing the + and - buttons only and the confirm/cancel buttons and the text field
+     *
+     * This method is typically called after a playlist-related operation (adding or deleting),
+     * to reset the UI for further interactions.
+     */
+    private void resetPlaylistUI()
     {
         btnAddPlaylist.setVisible(true);
         btnDeletePlaylist.setVisible(true);
@@ -230,42 +243,93 @@ public class HelloController {
         btnConfirmPlaylist.setVisible(false);
         btnCancelPlaylist.setVisible(false);
 
+        btnConfirmPlaylist.setText("✔");
+
         tfPlaylistName.clear();
     }
 
+    /**
+     * Handles the action for deleting a selected playlist when the delete button is clicked.
+     *
+     * This method retrieves the selected playlist from the ListView (lvAllPlayLists) and sets it as
+     * the pending playlist to delete.
+     * If no playlist is selected, an error alert is displayed to notify the user.
+     *
+     * If a playlist is selected, it updates the UI by hiding the "Add" and "Delete" buttons and
+     * displaying the "Confirm" and "Cancel" buttons.
+     */
     @FXML
     private void onDeletePlaylistClicked() {
-        // Get the selected playlist from the ListView
-        String selectedPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
+        pendingDeletePlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
 
-        // Ensure a playlist is selected
-        if (selectedPlaylist == null) {
-            showAlert("Error", "No playlist selected. Please select a playlist to delete.");
+        if (pendingDeletePlaylist == null) {
+            showAlert("Error", "No playlist selected. Please select one.");
             return;
         }
 
         btnAddPlaylist.setVisible(false);
         btnDeletePlaylist.setVisible(false);
 
+        btnConfirmPlaylist.setText("✅");  // Set confirm button to delete mode
         btnConfirmPlaylist.setVisible(true);
         btnCancelPlaylist.setVisible(true);
     }
+
+
+    /**
+     * Handles the action of the confirmation button.
+     *
+     * This method checks if the symbol is equal to the one used for deleting or for adding,
+     * If it is associated with deleting, it deletes, if not it adds a playlist.
+     * Displays an error if you haven't selected a playlist
+     *
+     * Makes it so we can reuse the same button for multiple functions.
+     */
+    @FXML
+    private void onConfirmPlaylist() {
+        if ("✅".equals(btnConfirmPlaylist.getText())) {
+            deleteSelectedPlaylist();
+        } else {
+            String playlistName = tfPlaylistName.getText().trim();
+            if (!playlistName.isEmpty()) {
+                playlistService.createPlaylist(playlistName); // Pass the playlist name
+                refreshPlaylists();
+            } else {
+                showAlert("Error", "Playlist name is empty!");
+            }
+        }
+        resetPlaylistUI();
+    }
+
+    @FXML
+    private void deleteSelectedPlaylist() {
+        if (pendingDeletePlaylist == null) {
+            showAlert("Error", "No playlist selected. Please select a playlist to delete.");
+            return;
+        }
+
+        boolean isDeleted = playlistService.deletePlaylist(pendingDeletePlaylist);
+        if (isDeleted) {
+            showAlert("Success", "Playlist '" + pendingDeletePlaylist + "' was deleted successfully.");
+            refreshPlaylists();
+        } else {
+            showAlert("Error", "Failed to delete the selected playlist. Please try again.");
+        }
+
+        pendingDeletePlaylist = null;  // Reset the stored playlist
+    }
+
+    @FXML
+    private void onCancelPlaylist()
+    {
+        resetPlaylistUI();
+    }
+
 
     // Refreshes the playlist, so the deleted or added playlists are shown correctly
     private void refreshPlaylists() {
         // Reload the playlists from the database after deletion
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
-    }
-
-    // Checks if you are connected to the database - Will be removed later
-    private void checkDatabaseConnection() {
-        if (DB.testConnection()) {
-            connectionStatus.setText("✅ Database Connected!");
-            connectionStatus.setStyle("-fx-text-fill: green;");
-        } else {
-            connectionStatus.setText("❌ Connection Failed!");
-            connectionStatus.setStyle("-fx-text-fill: red;");
-        }
     }
 
     // Helper method to show simple errors as alerts in scene builder instead of the console
