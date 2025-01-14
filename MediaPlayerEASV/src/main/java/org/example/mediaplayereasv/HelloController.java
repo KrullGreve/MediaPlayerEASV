@@ -2,6 +2,7 @@ package org.example.mediaplayereasv;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -40,8 +41,12 @@ public class HelloController {
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
-        loadPlaylists();
-        loadSongs();
+        if(DB.testConnection()) {
+            loadPlaylists();
+            loadSongs();
+        }else{
+            OfflineloadMusicFiles();
+        }
     }
 
 
@@ -103,15 +108,48 @@ public class HelloController {
             }
         }
     }
+    private void OfflineloadMusicFiles() {
+        URL musicFolderUrl = getClass().getResource("/Music");
+        if (musicFolderUrl != null) {
+            try {
+                File musicFolder = Paths.get(musicFolderUrl.toURI()).toFile();
+
+                if (musicFolder.exists() && musicFolder.isDirectory()) {
+                    File[] musicFiles = musicFolder.listFiles();
+
+                    if (musicFiles != null) {
+                        for (File file : musicFiles) {
+                            if (file.isFile() && file.getName().endsWith(".mp3")) {
+                                // Add file names to the ListView
+                                lvCurrentPlayList.getItems().add(file.getName());
+                            }
+                        }
+                    }
+                }
+            } catch (URISyntaxException e) {
+                System.out.println("Error loading music files: " + e.getMessage());
+            }
+        }
+    }
 
     @FXML
     public void onSongSelected(MouseEvent event) {
         String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
-        if (selectedSong != null) {
+        StringBuilder message = new StringBuilder();
+        message.append(getClass().getResource("/Music") + selectedSong);
+        if (selectedSong != null)
+        {
             try {
                 String titleOnly = selectedSong.split(" - ")[0];
 
-                URL songUrl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                System.out.println("Selected song: " + titleOnly);
+
+                System.out.println("What is my message . " + message.toString());
+
+                URL songUrl = getClass().getResource(message.toString());
+
+                System.out.println("Song URL: " + songUrl);
+
                 if (songUrl != null) {
                     if (mediaPlayer != null) {
                         mediaPlayer.stop(); // Stop any currently playing song
@@ -125,39 +163,44 @@ public class HelloController {
                 System.out.println("Error playing song: " + e.getMessage());
             }
 
-            // Load a random image from the Images folder
-            try {
-                File imagesFolder = new File(getClass().getResource("/Images").toURI());
 
-                if (imagesFolder.exists() && imagesFolder.isDirectory()) {
-                    File[] imageFiles = imagesFolder.listFiles(file -> file.isFile() && isImageFile(file.getName()));
+        }
+        ImageLoader();
+    }
 
-                    if (imageFiles != null && imageFiles.length > 0) {
-                        // Select a random image
-                        File randomImage = imageFiles[(int) (Math.random() * imageFiles.length)];
+    private void ImageLoader() {
+        // Load a random image from the Images folder
+        try {
+            File imagesFolder = new File(getClass().getResource("/Images").toURI());
 
-                        // Load the random image
-                        String imagePath = randomImage.toURI().toString();
-                        ivMainImage.setImage(new javafx.scene.image.Image(imagePath));
-                    } else {
-                        System.err.println("No image files found in the Images folder. Using placeholder.");
-                        ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
-                    }
+            if (imagesFolder.exists() && imagesFolder.isDirectory()) {
+                File[] imageFiles = imagesFolder.listFiles(file -> file.isFile() && isImageFile(file.getName()));
+
+                if (imageFiles != null && imageFiles.length > 0) {
+                    // Select a random image
+                    File randomImage = imageFiles[(int) (Math.random() * imageFiles.length)];
+
+                    // Load the random image
+                    String imagePath = randomImage.toURI().toString();
+                    ivMainImage.setImage(new javafx.scene.image.Image(imagePath));
                 } else {
-                    System.err.println("Images folder not found. Using placeholder.");
+                    System.err.println("No image files found in the Images folder. Using placeholder.");
                     ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
                 }
-            } catch (Exception e) {
-                System.err.println("Error loading random image: " + e.getMessage());
+            } else {
+                System.err.println("Images folder not found. Using placeholder.");
                 ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
             }
-
-            ivMainImage.setFitWidth(300); // Set to desired width
-            ivMainImage.setFitHeight(200); // Set to desired height
-
-            // Preserve the aspect ratio
-            ivMainImage.setPreserveRatio(true);
+        } catch (Exception e) {
+            System.err.println("Error loading random image: " + e.getMessage());
+            ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
         }
+
+        ivMainImage.setFitWidth(300); // Set to desired width
+        ivMainImage.setFitHeight(200); // Set to desired height
+
+        // Preserve the aspect ratio
+        ivMainImage.setPreserveRatio(true);
     }
 
     private boolean isImageFile(String fileName) {
