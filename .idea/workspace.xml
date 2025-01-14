@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Small changes / Documentation">
-      <change afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/StyleSheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/DB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/PlaylistServ.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/SongServ.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/songSelection.class" beforeDir="false" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="bnt images">
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/StyleSheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +66,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "dev__UI",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mikco/Documents/extra/sqljdbc4.jar",
+    "last_opened_file_path": "C:/Users/sebas/IdeaProjects/MediaPlayerEASV/MediaPlayerEASV/src/main/resources/bntImages",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -99,7 +87,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sebas\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\bntImages" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sebas\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\bntImages" />
       <recent name="C:\Users\mikco\Desktop\Skole\Kode folder\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\Images" />
       <recent name="C:\Users\Champ\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src" />
     </key>
@@ -194,7 +186,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736769759315</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="bnt images">
+      <option name="closed" value="true" />
+      <created>1736853812483</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736853812483</updated>
+    </task>
+    <task id="LOCAL-00010" summary="bnt images">
+      <option name="closed" value="true" />
+      <created>1736853824153</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736853824153</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +219,8 @@
     <MESSAGE value="Confirm/cancel Button function" />
     <MESSAGE value="init" />
     <MESSAGE value="Small changes / Documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small changes / Documentation" />
+    <MESSAGE value="bnt images" />
+    <option name="LAST_COMMIT_MESSAGE" value="bnt images" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
