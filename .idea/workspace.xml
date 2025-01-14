@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="bnt images">
-      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/StyleSheet.css" afterDir="false" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Offline mode in progress">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,14 +17,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="UI_2.0" />
+        <entry key="$PROJECT_DIR$" value="Updata" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,12 +62,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.HelloApplication.executor": "Run",
+    "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev__UI",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/sebas/IdeaProjects/MediaPlayerEASV/MediaPlayerEASV/src/main/resources/bntImages",
-    "list.type.of.created.stylesheet": "CSS",
+    "last_opened_file_path": "C:/Users/mikco/Desktop/Skole - Kopi/extra/sqljdbc4.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -87,17 +88,22 @@
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\sebas\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\bntImages" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\sebas\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\bntImages" />
       <recent name="C:\Users\mikco\Desktop\Skole\Kode folder\MediaPlayerEASV\MediaPlayerEASV\src\main\resources\Images" />
       <recent name="C:\Users\Champ\IdeaProjects\MediaPlayerEASV\MediaPlayerEASV\src" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.mediaplayereasv.HelloApplication" />
+      <module name="MediaPlayerEASV" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -186,21 +192,21 @@
       <option name="project" value="LOCAL" />
       <updated>1736769759315</updated>
     </task>
-    <task id="LOCAL-00009" summary="bnt images">
+    <task id="LOCAL-00009" summary="Offline mode in progress">
       <option name="closed" value="true" />
-      <created>1736853812483</created>
+      <created>1736849829163</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1736853812483</updated>
+      <updated>1736849829163</updated>
     </task>
-    <task id="LOCAL-00010" summary="bnt images">
+    <task id="LOCAL-00010" summary="Offline mode in progress">
       <option name="closed" value="true" />
-      <created>1736853824153</created>
+      <created>1736851136220</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1736853824153</updated>
+      <updated>1736851136220</updated>
     </task>
     <option name="localTasksCounter" value="11" />
     <servers />
@@ -219,8 +225,8 @@
     <MESSAGE value="Confirm/cancel Button function" />
     <MESSAGE value="init" />
     <MESSAGE value="Small changes / Documentation" />
-    <MESSAGE value="bnt images" />
-    <option name="LAST_COMMIT_MESSAGE" value="bnt images" />
+    <MESSAGE value="Offline mode in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Offline mode in progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
