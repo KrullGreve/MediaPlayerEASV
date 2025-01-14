@@ -45,28 +45,6 @@ public class HelloController {
     }
 
 
-    /**
-     * Loads songs from the database and cross-checks them with available music files in the application's "Music" folder.
-     *
-     * This method retrieves all song titles and corresponding artist names from the database using the `songService.getAllSongs()` method.
-     * Each song is expected to be in the format "Title - Artist".
-     * Subsequently, it checks if these songs correspond to actual .mp3 files located in the "Music" folder of the application.
-     * Only songs with matching .mp3 files are added to the application's current playlist (`lvCurrentPlayList`).
-     *
-     * Key Steps:
-     * - Retrieves song data from the database.
-     * - Locates the "Music" folder in the application's resources and retrieves all .mp3 files within it.
-     * - Matches database song entries with the actual .mp3 files. If a match is found, the song is considered valid.
-     * - Updates the ListView (`lvCurrentPlayList`) with valid songs using the JavaFX `Platform.runLater()` method.
-     * - Logs invalid or missing songs to the console for debugging purposes.
-     *
-     * Error Handling:
-     * - If the database contains no songs, a message is printed, and the method exits.
-     * - Handles errors related to URI syntax when accessing the music folder.
-     *
-     * Debugging:
-     * - Outputs messages to the console for scenarios such as missing songs (no matching files in the folder), empty valid song lists, or errors accessing the music folder.
-     */
     void loadSongs() {
         // Get song names from the database
         var databaseSongs = songService.getAllSongs();
