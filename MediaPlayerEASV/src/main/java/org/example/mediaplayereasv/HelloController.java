@@ -139,14 +139,15 @@ public class HelloController {
         {
             try {
                 String titleOnly = selectedSong.split(" - ")[0];
+                URL songUrl = getClass().getResource("/Music/" + titleOnly +".mp3");
+                URL offlineSongUrl = getClass().getResource("/Music/" + titleOnly);
 
-                URL songUrl = getClass().getResource("/Music/" + titleOnly);
-
-                if (songUrl != null) {
+                if (songUrl != null || offlineSongUrl != null) {
                     if (mediaPlayer != null) {
                         mediaPlayer.stop(); // Stop any currently playing song
                     }
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
                     mediaPlayer.play();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
