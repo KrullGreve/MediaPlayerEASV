@@ -1,0 +1,55 @@
+.custom-border-pane {
+    -fx-border-color: #000000;
+    -fx-background-color: linear-gradient(to bottom, #024e7c, #ff9e60);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+}
+
+
+/* Styles for ListView with rounded edges */
+.list-view {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-border-color: #000000;
+    -fx-background-color: linear-gradient(to bottom, #00619f, #ff9e60);
+}
+
+/* Optional: Add hover effect for ListView items */
+.list-cell:hover {
+    -fx-background-color: #e6e6e6;
+}
+
+/* Styles for ImageView */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+}
+
+.button {
+    -fx-background-color: #00619f;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box {
+    -fx-background-color: #00619f;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10;
+}
+
+.label {
+    -fx-font-family: Dialog;
+}
+
+.slider .thumb {
+    -fx-background-color: #00619f;
+}
+
+.slider .track {
+    -fx-background-color: #797979;
+}
