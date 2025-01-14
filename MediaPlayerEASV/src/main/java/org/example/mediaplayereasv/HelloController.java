@@ -146,8 +146,11 @@ public class HelloController {
                     if (mediaPlayer != null) {
                         mediaPlayer.stop(); // Stop any currently playing song
                     }
-                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
-                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
+                    if(offlineSongUrl != null) {
+                        mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
+                    }if(songUrl != null) {
+                        mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                    }
                     mediaPlayer.play();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
