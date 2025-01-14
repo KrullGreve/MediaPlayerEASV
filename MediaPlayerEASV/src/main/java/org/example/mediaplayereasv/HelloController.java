@@ -135,20 +135,12 @@ public class HelloController {
     @FXML
     public void onSongSelected(MouseEvent event) {
         String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
-        StringBuilder message = new StringBuilder();
-        message.append(getClass().getResource("/Music") + selectedSong);
         if (selectedSong != null)
         {
             try {
                 String titleOnly = selectedSong.split(" - ")[0];
 
-                System.out.println("Selected song: " + titleOnly);
-
-                System.out.println("What is my message . " + message.toString());
-
-                URL songUrl = getClass().getResource(message.toString());
-
-                System.out.println("Song URL: " + songUrl);
+                URL songUrl = getClass().getResource("/Music/" + titleOnly);
 
                 if (songUrl != null) {
                     if (mediaPlayer != null) {
