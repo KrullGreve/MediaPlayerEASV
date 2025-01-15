@@ -21,7 +21,7 @@
                   <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" text="Duration: 00/00" />
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
                     <children>
-                        <Slider fx:id="mySliderDuration" HBox.hgrow="ALWAYS">
+                        <Slider fx:id="mySliderDuration" blockIncrement="1.0" showTickLabels="true" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets bottom="15.0" />
                             </HBox.margin></Slider>
@@ -51,7 +51,7 @@
                                       </ImageView>
                                   </graphic>
                               </Button>
-                              <Button fx:id="bntStop" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+                              <Button fx:id="bntStop" mnemonicParsing="false" onAction="#onStopPlay" prefHeight="40.0" prefWidth="40.0">
                                   <graphic>
                                       <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                           <image>
@@ -69,7 +69,7 @@
                                       </ImageView>
                                   </graphic>
                               </Button>
-                              <Button fx:id="bntPlay" cache="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" textAlignment="CENTER">
+                              <Button fx:id="bntPlay" cache="true" mnemonicParsing="false" onAction="#onPausePlay" prefHeight="50.0" prefWidth="60.0" textAlignment="CENTER">
                                   <graphic>
                                       <ImageView cache="true" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" smooth="false">
                                           <image>
@@ -130,7 +130,7 @@
       </VBox>
    </right>
    <left>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <ListView fx:id="lvAllPlayLists" editable="true" VBox.vgrow="ALWAYS">
                <VBox.margin>
@@ -139,12 +139,12 @@
             </ListView>
             <HBox alignment="CENTER">
                <children>
-                  <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                  <Button fx:id="btnAddPlaylist" alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-">
+                  <Button fx:id="btnDeletePlaylist" alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
@@ -176,7 +176,7 @@
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@Icon.png" />
+                  <Image url="@../../../bntImages/Icon.png" />
                </image>
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

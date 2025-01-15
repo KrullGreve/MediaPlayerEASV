@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Offline mode in progress">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="c131c9e0-74df-4d96-b82a-3cf96b2f8c3a" name="Changes" comment="Offline mode done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/java/org/example/mediaplayereasv/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/src/main/resources/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/module-info.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/HelloController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/Icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/styleSheetUI.css" beforeDir="false" afterPath="$PROJECT_DIR$/MediaPlayerEASV/target/classes/org/example/mediaplayereasv/styleSheetUI.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Updata" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,12 +41,12 @@
     &quot;assignee&quot;: &quot;TobiasFalck&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/KrullGreve/MediaPlayerEASV.git&quot;,
-    &quot;accountId&quot;: &quot;fd1338ce-02a7-49a4-9b16-8f6f33b56500&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/KrullGreve/MediaPlayerEASV.git",
+    "accountId": "5ef1204b-a29a-401c-8154-aecbbe29094c"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_1_HelloController.class" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Temp/tmp_2_HelloController.class" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +73,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "dev-buttons",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/mikco/Desktop/Skole - Kopi/extra/sqljdbc4.jar",
     "node.js.detected.package.eslint": "true",
@@ -128,6 +134,7 @@
       <workItem from="1736501848704" duration="1964000" />
       <workItem from="1736511121649" duration="755000" />
       <workItem from="1736511893893" duration="10812000" />
+      <workItem from="1736925704426" duration="6788000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -217,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736853762843</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Offline mode done">
+      <option name="closed" value="true" />
+      <created>1736855990991</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1736855990991</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +250,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="Small changes / Documentation" />
     <MESSAGE value="Offline mode in progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="Offline mode in progress" />
+    <MESSAGE value="Offline mode done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Offline mode done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
