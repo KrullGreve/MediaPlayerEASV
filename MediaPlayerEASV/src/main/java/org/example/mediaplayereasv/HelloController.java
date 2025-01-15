@@ -1,8 +1,6 @@
 package org.example.mediaplayereasv;
 
 import javafx.application.Platform;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -27,7 +25,7 @@ public class HelloController {
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
-    @FXML private Slider mySliderDuration;
+    @FXML private Label myDuration;
 
     private MediaPlayer mediaPlayer;
 
@@ -37,7 +35,7 @@ public class HelloController {
 
     // Stores the Deletion of playlists
     private String pendingDeletePlaylist = null;
-    private final DoubleProperty currentTimeProperty = new SimpleDoubleProperty();
+
 
 
     @FXML
@@ -46,10 +44,15 @@ public class HelloController {
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
+        System.out.println(songService.getSongDuration("Trendsetter"));
+
+
         if(DB.testConnection()) {
             System.out.println("Connected to DB");
+
             loadPlaylists();
             loadSongs();
+
         }else{
             System.out.println("offline connection");
             OfflineloadMusicFiles();
@@ -70,6 +73,21 @@ public class HelloController {
         if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.stop();
         }
+    }
+    @FXML
+    private void onRepeatEnable(){
+        if(mediaPlayer.isAutoPlay()){
+            mediaPlayer.setAutoPlay(false);
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
+        }else {
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setOnEndOfMedia(() -> {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            });
+        }
+
     }
 
     void loadSongs() {
@@ -131,10 +149,10 @@ public class HelloController {
         }
     }
     private void OfflineloadMusicFiles() {
-        URL musicFolderUrl = getClass().getResource("/Music");
-        if (musicFolderUrl != null) {
+        URL offlineMusicFolderUrl = getClass().getResource("/Music");
+        if (offlineMusicFolderUrl != null) {
             try {
-                File musicFolder = Paths.get(musicFolderUrl.toURI()).toFile();
+                File musicFolder = Paths.get(offlineMusicFolderUrl.toURI()).toFile();
 
                 if (musicFolder.exists() && musicFolder.isDirectory()) {
                     File[] musicFiles = musicFolder.listFiles();
@@ -155,7 +173,7 @@ public class HelloController {
     }
 
     @FXML
-    public void onSongSelected(MouseEvent event) {
+    public void onSongSelected(MouseEvent ignoredEvent) {
         String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
         if (selectedSong != null)
         {
@@ -173,7 +191,6 @@ public class HelloController {
 
                     }if(songUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
-
                     }
                     if(!mediaPlayer.isAutoPlay()) {
                         mediaPlayer.setAutoPlay(true);
@@ -219,8 +236,8 @@ public class HelloController {
             ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
         }
 
-        ivMainImage.setFitWidth(300); // Set to desired width
-        ivMainImage.setFitHeight(200); // Set to desired height
+        ivMainImage.setFitWidth(500); // Set to desired width
+        ivMainImage.setFitHeight(400); // Set to desired height
 
         // Preserve the aspect ratio
         ivMainImage.setPreserveRatio(true);
