@@ -437,7 +437,8 @@ public class HelloController {
             if (!cbSearchBar.isShowing()) {
                 cbSearchBar.show(); // Show the dropdown if it's not already visible
             }
-            ObservableList<String> filteredItems = FXCollections.observableArrayList(lvCurrentPlayList.getSelectionModel().getSelectedItems());
+            ObservableList<String> filteredItems =
+                    FXCollections.observableArrayList(lvCurrentPlayList.getSelectionModel().getSelectedItems());
             for (String item : lvCurrentPlayList.getItems()) {
                 if (item.toLowerCase().contains(newText.toLowerCase())) {
                     filteredItems.add(item);
@@ -455,7 +456,7 @@ public class HelloController {
             try {
 
 
-            if (searchBarResult != "") {
+            if (!searchBarResult.isEmpty()) {
 
                 String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
                 String titleOnly = sbResult;
