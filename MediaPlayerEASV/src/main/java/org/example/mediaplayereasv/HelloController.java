@@ -448,21 +448,29 @@ public class HelloController {
             // Set the user's input text in the editor
             cbSearchBar.getEditor().setText(newText);
             cbSearchBar.getEditor().end();// Move the caret to the end of the text
-            int searchBarResult = cbSearchBar.getSelectionModel().getSelectedIndex();
+            String searchBarResult = cbSearchBar.getSelectionModel().getSelectedItem();
             lvCurrentPlayList.getSelectionModel().select(searchBarResult);
-            String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+            System.out.println(searchBarResult);
+
             try {
 
 
-            if (searchBarResult >= 0) {
-                String titleOnly = sbResult.split(" - ")[0];
+            if (searchBarResult != "") {
+
+                String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+                String titleOnly = sbResult;
                 URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
                 if (searchBarURl != null) {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
                     songNameDisplay();
                     imageLoader();
                 }
-                mediaPlayer.play();
+                if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    mediaPlayer.stop();
+                }else{
+                    mediaPlayer.play();
+                }
+
                 }
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
