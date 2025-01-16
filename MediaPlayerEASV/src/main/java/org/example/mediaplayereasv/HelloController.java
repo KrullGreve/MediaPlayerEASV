@@ -2,6 +2,7 @@ package org.example.mediaplayereasv;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -26,6 +27,7 @@ public class HelloController {
     @FXML private ImageView ivMainImage;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
     @FXML private Label myDuration, songDisplay;
+    @FXML private ComboBox<String> cbSearchBar;
 
     private MediaPlayer mediaPlayer;
 
@@ -59,10 +61,13 @@ public class HelloController {
     }
     @FXML
     private void onPausePlay() {
-        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            mediaPlayer.pause();
-        }else{
-            mediaPlayer.play();
+        if(mediaPlayer != null)
+        {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
         }
     }
     @FXML
@@ -171,6 +176,8 @@ public class HelloController {
                         Platform.runLater(() -> {
                             lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
                             lvCurrentPlayList.refresh();
+                            setCbSearchBar();
+
                         });
 
                         if (validSongs.isEmpty()) {
@@ -424,6 +431,47 @@ public class HelloController {
     private void songNameDisplay(){
         songDisplay.setText(lvCurrentPlayList.getSelectionModel().getSelectedItem());
     }
+    private void setCbSearchBar(){
+        cbSearchBar.setEditable(true);
+        cbSearchBar.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+            if (!cbSearchBar.isShowing()) {
+                cbSearchBar.show(); // Show the dropdown if it's not already visible
+            }
+            ObservableList<String> filteredItems = FXCollections.observableArrayList(lvCurrentPlayList.getSelectionModel().getSelectedItems());
+            for (String item : lvCurrentPlayList.getItems()) {
+                if (item.toLowerCase().contains(newText.toLowerCase())) {
+                    filteredItems.add(item);
+                }
+            }
+            cbSearchBar.setItems(filteredItems);
+
+            // Set the user's input text in the editor
+            cbSearchBar.getEditor().setText(newText);
+            cbSearchBar.getEditor().end();// Move the caret to the end of the text
+            int searchBarResult = cbSearchBar.getSelectionModel().getSelectedIndex();
+            lvCurrentPlayList.getSelectionModel().select(searchBarResult);
+            String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+            try {
+
+
+            if (searchBarResult >= 0) {
+                String titleOnly = sbResult.split(" - ")[0];
+                URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                if (searchBarURl != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
+                    songNameDisplay();
+                    imageLoader();
+                }
+                mediaPlayer.play();
+                }
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+
+
 
     // Helper method to show simple errors as alerts in scene builder instead of the console
     private void showAlert(String title, String message) {

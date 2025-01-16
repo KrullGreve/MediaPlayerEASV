@@ -11,7 +11,10 @@ public class SongServ
 
         while (true) {
             String title = DB.getData();
-            if (title.equals(DB.NOMOREDATA)) break;
+            if (title.equals(DB.NOMOREDATA))
+            {
+                break;
+            }
             String artist = DB.getData();
             songs.add(title + " - " + artist);
         }
