@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
@@ -18,14 +19,21 @@ import java.util.HashSet;
 import java.util.Objects;
 
 
+
 public class HelloController {
 
+    private double previousVolume = 0.5; // Stores last volume before mute
+    private final String MUTE_IMAGE = "/bntImages/bntMute.png";  // Path to mute icon
+    private final String UNMUTE_IMAGE = "/bntImages/sVolume.png";  // Path to unmute icon
+
+    @FXML private ImageView bntMuteIcon;
     @FXML private ListView<String> lvAllPlayLists;
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
-    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
+    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist, bntMute;
     @FXML private Label myDuration;
+    @FXML private Slider mySliderDuration, mySliderVolume;
 
     private MediaPlayer mediaPlayer;
 
@@ -192,9 +200,22 @@ public class HelloController {
                     }if(songUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
                     }
-                    if(!mediaPlayer.isAutoPlay()) {
-                        mediaPlayer.setAutoPlay(true);
-                    }
+                    String durationStr = songService.getSongDuration(titleOnly);
+                    int totalSeconds = parseDuration(durationStr);
+                    Duration totalDuration = Duration.seconds(totalSeconds);
+
+                    mediaPlayer.setOnReady(() -> {
+                        mySliderDuration.setMax(totalDuration.toSeconds()); // Set max slider value
+                        updateDurationLabel(Duration.ZERO, totalDuration);
+                    });
+
+                    mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+                        if (!mySliderDuration.isValueChanging()) {
+                            mySliderDuration.setValue(newTime.toSeconds());
+                        }
+                        updateDurationLabel(newTime, totalDuration);
+                    });
+
                     mediaPlayer.play();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
@@ -393,6 +414,72 @@ public class HelloController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void onSliderDragged() {
+        if (mediaPlayer != null) {
+            mediaPlayer.seek(Duration.seconds(mySliderDuration.getValue()));
+        }
+    }
+
+    @FXML
+    private void updateDurationLabel(Duration current, Duration total) {
+        String currentTime = formatDuration(current);
+        String totalTime = formatDuration(total);
+        myDuration.setText(currentTime + " / " + totalTime);
+    }
+
+    private String formatDuration(Duration duration) {
+        int minutes = (int) duration.toMinutes();
+        int seconds = (int) duration.toSeconds() % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    // Convert "MM:SS" from database to total seconds
+    private int parseDuration(String durationStr) {
+        try {
+            String[] parts = durationStr.split(":");
+            int minutes = Integer.parseInt(parts[0]);
+            int seconds = Integer.parseInt(parts[1]);
+            return (minutes * 60) + seconds;
+        } catch (Exception e) {
+            return 0; // Default to 0 if parsing fails
+        }
+    }
+
+    @FXML
+    private void onMuteToggle() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isMute()) {
+                // Unmute: Restore previous volume
+                mediaPlayer.setMute(false);
+                mediaPlayer.setVolume(previousVolume);
+                mySliderVolume.setValue(previousVolume * 100);
+                updateMuteIcon(false);
+            } else {
+                // Mute: Store current volume and set to 0
+                previousVolume = mediaPlayer.getVolume();
+                mediaPlayer.setMute(true);
+                mediaPlayer.setVolume(0);
+                mySliderVolume.setValue(0);
+                updateMuteIcon(true);
+            }
+        }
+    }
+
+    private void updateMuteIcon(boolean isMuted) {
+        String imagePath = isMuted ? MUTE_IMAGE : UNMUTE_IMAGE;
+        bntMuteIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
+    }
+
+    @FXML
+    private void onVolumeChange() {
+        if (mediaPlayer != null) {
+            double volume = mySliderVolume.getValue() / 100.0; // Convert 0-100 to 0-1 range
+            mediaPlayer.setVolume(volume);
+        }
+    }
+
 
 
 }
