@@ -44,9 +44,6 @@ public class HelloController {
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
-        System.out.println(songService.getSongDuration("Trendsetter"));
-
-
         if(DB.testConnection()) {
             System.out.println("Connected to DB");
 
@@ -88,6 +85,43 @@ public class HelloController {
             });
         }
 
+    }
+    @FXML
+    private void nextSong(){
+        lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()+1);
+        System.out.println(lvCurrentPlayList.getSelectionModel().getSelectedItem());
+        checkCurrentSong();
+        imageLoader();
+
+    }
+
+
+
+    @FXML
+    private void previousSong(){
+        if(lvCurrentPlayList.getSelectionModel().getSelectedIndex() > 0){
+            lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()-1);
+            checkCurrentSong();
+            imageLoader();
+        }
+
+    }
+
+    private void checkCurrentSong() {
+        if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+            mediaPlayer.seek(Duration.ZERO);
+            try {
+                String nextTitleOnly = lvCurrentPlayList.getSelectionModel().getSelectedItem().split(" - ")[0];
+                URL nextURL = getClass().getResource("/Music/" + nextTitleOnly + ".mp3");
+                if (nextURL != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
+                }
+                mediaPlayer.play();
+            }catch (URISyntaxException e){
+                System.out.println("Error loading music files: " + e.getMessage());
+            }
+        }
     }
 
     void loadSongs() {
@@ -205,10 +239,10 @@ public class HelloController {
 
 
         }
-        ImageLoader();
+        imageLoader();
     }
 
-    private void ImageLoader() {
+    private void imageLoader() {
         // Load a random image from the Images folder
         try {
             File imagesFolder = new File(Objects.requireNonNull(getClass().getResource("/Images")).toURI());
