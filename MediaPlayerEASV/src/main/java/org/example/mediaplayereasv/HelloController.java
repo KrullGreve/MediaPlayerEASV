@@ -25,7 +25,7 @@ public class HelloController {
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
-    @FXML private Label myDuration;
+    @FXML private Label myDuration, songDisplay;
 
     private MediaPlayer mediaPlayer;
 
@@ -92,20 +92,21 @@ public class HelloController {
         System.out.println(lvCurrentPlayList.getSelectionModel().getSelectedItem());
         checkCurrentSong();
         imageLoader();
+        songNameDisplay();
 
     }
-
-
-
     @FXML
     private void previousSong(){
         if(lvCurrentPlayList.getSelectionModel().getSelectedIndex() > 0){
             lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()-1);
             checkCurrentSong();
             imageLoader();
+            songNameDisplay();
         }
 
     }
+
+
 
     private void checkCurrentSong() {
         if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
@@ -222,9 +223,11 @@ public class HelloController {
                     }
                     if(offlineSongUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
+                        songNameDisplay();
 
                     }if(songUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                        songNameDisplay();
                     }
                     if(!mediaPlayer.isAutoPlay()) {
                         mediaPlayer.setAutoPlay(true);
@@ -417,6 +420,9 @@ public class HelloController {
     private void refreshPlaylists() {
         // Reload the playlists from the database after deletion
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
+    }
+    private void songNameDisplay(){
+        songDisplay.setText(lvCurrentPlayList.getSelectionModel().getSelectedItem());
     }
 
     // Helper method to show simple errors as alerts in scene builder instead of the console

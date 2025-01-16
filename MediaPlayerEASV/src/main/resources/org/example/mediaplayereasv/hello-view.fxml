@@ -21,7 +21,7 @@
                   <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" text="Duration: 00/00" />
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
                     <children>
-                        <Slider fx:id="mySliderDuration" blockIncrement="1.0" showTickLabels="true" HBox.hgrow="ALWAYS">
+                        <Slider fx:id="mySliderDuration" blockIncrement="1.0" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets bottom="15.0" />
                             </HBox.margin></Slider>
