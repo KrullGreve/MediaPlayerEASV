@@ -8,13 +8,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
-
+import java.util.Objects;
 
 
 public class HelloController {
@@ -24,6 +26,8 @@ public class HelloController {
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
+    @FXML private Label myDuration, songDisplay;
+    @FXML private ComboBox<String> cbSearchBar;
 
     private MediaPlayer mediaPlayer;
 
@@ -38,17 +42,93 @@ public class HelloController {
 
     @FXML
     public void initialize() {
+
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
         if(DB.testConnection()) {
+            System.out.println("Connected to DB");
+
             loadPlaylists();
             loadSongs();
+
         }else{
+            System.out.println("offline connection");
             OfflineloadMusicFiles();
+
+        }
+
+    }
+    @FXML
+    private void onPausePlay() {
+        if(mediaPlayer != null)
+        {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
         }
     }
+    @FXML
+    private void onStopPlay() {
+        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+        }
+    }
+    @FXML
+    private void onRepeatEnable(){
+        if(mediaPlayer.isAutoPlay()){
+            mediaPlayer.setAutoPlay(false);
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
+        }else {
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setOnEndOfMedia(() -> {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            });
+        }
 
+    }
+    @FXML
+    private void nextSong(){
+        lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()+1);
+        System.out.println(lvCurrentPlayList.getSelectionModel().getSelectedItem());
+        checkCurrentSong();
+        imageLoader();
+        songNameDisplay();
+
+    }
+    @FXML
+    private void previousSong(){
+        if(lvCurrentPlayList.getSelectionModel().getSelectedIndex() > 0){
+            lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()-1);
+            checkCurrentSong();
+            imageLoader();
+            songNameDisplay();
+        }
+
+    }
+
+
+
+    private void checkCurrentSong() {
+        if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+            mediaPlayer.seek(Duration.ZERO);
+            try {
+                String nextTitleOnly = lvCurrentPlayList.getSelectionModel().getSelectedItem().split(" - ")[0];
+                URL nextURL = getClass().getResource("/Music/" + nextTitleOnly + ".mp3");
+                if (nextURL != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
+                }
+                mediaPlayer.play();
+            }catch (URISyntaxException e){
+                System.out.println("Error loading music files: " + e.getMessage());
+            }
+        }
+    }
 
     void loadSongs() {
         // Get song names from the database
@@ -96,6 +176,8 @@ public class HelloController {
                         Platform.runLater(() -> {
                             lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
                             lvCurrentPlayList.refresh();
+                            setCbSearchBar();
+
                         });
 
                         if (validSongs.isEmpty()) {
@@ -109,10 +191,10 @@ public class HelloController {
         }
     }
     private void OfflineloadMusicFiles() {
-        URL musicFolderUrl = getClass().getResource("/Music");
-        if (musicFolderUrl != null) {
+        URL offlineMusicFolderUrl = getClass().getResource("/Music");
+        if (offlineMusicFolderUrl != null) {
             try {
-                File musicFolder = Paths.get(musicFolderUrl.toURI()).toFile();
+                File musicFolder = Paths.get(offlineMusicFolderUrl.toURI()).toFile();
 
                 if (musicFolder.exists() && musicFolder.isDirectory()) {
                     File[] musicFiles = musicFolder.listFiles();
@@ -133,7 +215,7 @@ public class HelloController {
     }
 
     @FXML
-    public void onSongSelected(MouseEvent event) {
+    public void onSongSelected(MouseEvent ignoredEvent) {
         String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
         if (selectedSong != null)
         {
@@ -148,8 +230,14 @@ public class HelloController {
                     }
                     if(offlineSongUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
+                        songNameDisplay();
+
                     }if(songUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                        songNameDisplay();
+                    }
+                    if(!mediaPlayer.isAutoPlay()) {
+                        mediaPlayer.setAutoPlay(true);
                     }
                     mediaPlayer.play();
                 } else {
@@ -161,13 +249,13 @@ public class HelloController {
 
 
         }
-        ImageLoader();
+        imageLoader();
     }
 
-    private void ImageLoader() {
+    private void imageLoader() {
         // Load a random image from the Images folder
         try {
-            File imagesFolder = new File(getClass().getResource("/Images").toURI());
+            File imagesFolder = new File(Objects.requireNonNull(getClass().getResource("/Images")).toURI());
 
             if (imagesFolder.exists() && imagesFolder.isDirectory()) {
                 File[] imageFiles = imagesFolder.listFiles(file -> file.isFile() && isImageFile(file.getName()));
@@ -192,8 +280,8 @@ public class HelloController {
             ivMainImage.setImage(new javafx.scene.image.Image("https://via.placeholder.com/500"));
         }
 
-        ivMainImage.setFitWidth(300); // Set to desired width
-        ivMainImage.setFitHeight(200); // Set to desired height
+        ivMainImage.setFitWidth(500); // Set to desired width
+        ivMainImage.setFitHeight(400); // Set to desired height
 
         // Preserve the aspect ratio
         ivMainImage.setPreserveRatio(true);
@@ -211,12 +299,10 @@ public class HelloController {
 
     /**
      * Handles the action when the "Add Playlist" button is clicked.
-     *
      * This method updates the user interface to initiate the process of creating a new playlist.
      * It hides the "Add" and "Delete" playlist buttons and displays the text field for entering
      * the playlist name along with the "Confirm" and "Cancel" buttons. The text field is also
      * cleared to ensure no pre-existing content is displayed.
-     *
      * Key UI Changes:
      * - Hides the "Add Playlist" button.
      * - Hides the "Delete Playlist" button.
@@ -224,7 +310,6 @@ public class HelloController {
      * - Displays the "Confirm" button.
      * - Displays the "Cancel" button.
      * - Clears the content of the playlist name text field.
-     *
      * This method prepares the UI for the user to input the name for a new playlist.
      */
     @FXML
@@ -247,7 +332,6 @@ public class HelloController {
     /**
      * Resets the playlist-related UI components to their default state,
      * like showing the + and - buttons only and the confirm/cancel buttons and the text field
-     *
      * This method is typically called after a playlist-related operation (adding or deleting),
      * to reset the UI for further interactions.
      */
@@ -267,11 +351,9 @@ public class HelloController {
 
     /**
      * Handles the action for deleting a selected playlist when the delete button is clicked.
-     *
      * This method retrieves the selected playlist from the ListView (lvAllPlayLists) and sets it as
      * the pending playlist to delete.
      * If no playlist is selected, an error alert is displayed to notify the user.
-     *
      * If a playlist is selected, it updates the UI by hiding the "Add" and "Delete" buttons and
      * displaying the "Confirm" and "Cancel" buttons.
      */
@@ -295,11 +377,9 @@ public class HelloController {
 
     /**
      * Handles the action of the confirmation button.
-     *
      * This method checks if the symbol is equal to the one used for deleting or for adding,
      * If it is associated with deleting, it deletes, if not it adds a playlist.
      * Displays an error if you haven't selected a playlist
-     *
      * Makes it so we can reuse the same button for multiple functions.
      */
     @FXML
@@ -348,6 +428,59 @@ public class HelloController {
         // Reload the playlists from the database after deletion
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
+    private void songNameDisplay(){
+        songDisplay.setText(lvCurrentPlayList.getSelectionModel().getSelectedItem());
+    }
+    private void setCbSearchBar(){
+        cbSearchBar.setEditable(true);
+        cbSearchBar.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+            if (!cbSearchBar.isShowing()) {
+                cbSearchBar.show(); // Show the dropdown if it's not already visible
+            }
+            ObservableList<String> filteredItems =
+                    FXCollections.observableArrayList(lvCurrentPlayList.getSelectionModel().getSelectedItems());
+            for (String item : lvCurrentPlayList.getItems()) {
+                if (item.toLowerCase().contains(newText.toLowerCase())) {
+                    filteredItems.add(item);
+                }
+            }
+            cbSearchBar.setItems(filteredItems);
+
+            // Set the user's input text in the editor
+            cbSearchBar.getEditor().setText(newText);
+            cbSearchBar.getEditor().end();// Move the caret to the end of the text
+            String searchBarResult = cbSearchBar.getSelectionModel().getSelectedItem();
+            lvCurrentPlayList.getSelectionModel().select(searchBarResult);
+            System.out.println(searchBarResult);
+
+            try {
+
+
+            if (!searchBarResult.isEmpty()) {
+
+                String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+                String titleOnly = sbResult;
+                URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                if (searchBarURl != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
+                    songNameDisplay();
+                    imageLoader();
+                }
+                if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    mediaPlayer.stop();
+                }else{
+                    mediaPlayer.play();
+                }
+
+                }
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+
+
 
     // Helper method to show simple errors as alerts in scene builder instead of the console
     private void showAlert(String title, String message) {
@@ -357,4 +490,6 @@ public class HelloController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

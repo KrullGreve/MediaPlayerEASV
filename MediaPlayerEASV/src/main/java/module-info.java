@@ -14,6 +14,7 @@ module org.example.mediaplayereasv {
     requires javafx.media;
     requires sqljdbc4;
     requires java.desktop;
+    requires jdk.jfr;
 
     opens org.example.mediaplayereasv to javafx.fxml;
     exports org.example.mediaplayereasv;

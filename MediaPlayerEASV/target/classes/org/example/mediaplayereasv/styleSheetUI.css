@@ -11,6 +11,11 @@
     -fx-background-color: #e6e6e6;
 }
 
+.list-view {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to bottom, #024e7c, #ff9e60);
+}
 
 .button {
     -fx-background-color: #00619f;
