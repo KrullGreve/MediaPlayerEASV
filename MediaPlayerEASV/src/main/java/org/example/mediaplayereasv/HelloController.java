@@ -2,6 +2,7 @@ package org.example.mediaplayereasv;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -19,7 +20,6 @@ import java.util.HashSet;
 import java.util.Objects;
 
 
-
 public class HelloController {
 
     private double previousVolume = 0.5; // Stores last volume before mute
@@ -31,8 +31,9 @@ public class HelloController {
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
+    @FXML private Label myDuration, songDisplay;
+    @FXML private ComboBox<String> cbSearchBar;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist, bntMute;
-    @FXML private Label myDuration;
     @FXML private Slider mySliderDuration, mySliderVolume;
 
     private MediaPlayer mediaPlayer;
@@ -52,9 +53,6 @@ public class HelloController {
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
-        System.out.println(songService.getSongDuration("Trendsetter"));
-
-
         if(DB.testConnection()) {
             System.out.println("Connected to DB");
 
@@ -70,10 +68,13 @@ public class HelloController {
     }
     @FXML
     private void onPausePlay() {
-        if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-            mediaPlayer.pause();
-        }else{
-            mediaPlayer.play();
+        if(mediaPlayer != null)
+        {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.play();
+            }
         }
     }
     @FXML
@@ -96,6 +97,44 @@ public class HelloController {
             });
         }
 
+    }
+    @FXML
+    private void nextSong(){
+        lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()+1);
+        System.out.println(lvCurrentPlayList.getSelectionModel().getSelectedItem());
+        checkCurrentSong();
+        imageLoader();
+        songNameDisplay();
+
+    }
+    @FXML
+    private void previousSong(){
+        if(lvCurrentPlayList.getSelectionModel().getSelectedIndex() > 0){
+            lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()-1);
+            checkCurrentSong();
+            imageLoader();
+            songNameDisplay();
+        }
+
+    }
+
+
+
+    private void checkCurrentSong() {
+        if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.stop();
+            mediaPlayer.seek(Duration.ZERO);
+            try {
+                String nextTitleOnly = lvCurrentPlayList.getSelectionModel().getSelectedItem().split(" - ")[0];
+                URL nextURL = getClass().getResource("/Music/" + nextTitleOnly + ".mp3");
+                if (nextURL != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
+                }
+                mediaPlayer.play();
+            }catch (URISyntaxException e){
+                System.out.println("Error loading music files: " + e.getMessage());
+            }
+        }
     }
 
     void loadSongs() {
@@ -144,6 +183,8 @@ public class HelloController {
                         Platform.runLater(() -> {
                             lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
                             lvCurrentPlayList.refresh();
+                            setCbSearchBar();
+
                         });
 
                         if (validSongs.isEmpty()) {
@@ -196,9 +237,11 @@ public class HelloController {
                     }
                     if(offlineSongUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(offlineSongUrl.toURI().toString()));
+                        songNameDisplay();
 
                     }if(songUrl != null) {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
+                        songNameDisplay();
                     }
                     String durationStr = songService.getSongDuration(titleOnly);
                     int totalSeconds = parseDuration(durationStr);
@@ -226,10 +269,10 @@ public class HelloController {
 
 
         }
-        ImageLoader();
+        imageLoader();
     }
 
-    private void ImageLoader() {
+    private void imageLoader() {
         // Load a random image from the Images folder
         try {
             File imagesFolder = new File(Objects.requireNonNull(getClass().getResource("/Images")).toURI());
@@ -405,6 +448,59 @@ public class HelloController {
         // Reload the playlists from the database after deletion
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
+    private void songNameDisplay(){
+        songDisplay.setText(lvCurrentPlayList.getSelectionModel().getSelectedItem());
+    }
+    private void setCbSearchBar(){
+        cbSearchBar.setEditable(true);
+        cbSearchBar.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+            if (!cbSearchBar.isShowing()) {
+                cbSearchBar.show(); // Show the dropdown if it's not already visible
+            }
+            ObservableList<String> filteredItems =
+                    FXCollections.observableArrayList(lvCurrentPlayList.getSelectionModel().getSelectedItems());
+            for (String item : lvCurrentPlayList.getItems()) {
+                if (item.toLowerCase().contains(newText.toLowerCase())) {
+                    filteredItems.add(item);
+                }
+            }
+            cbSearchBar.setItems(filteredItems);
+
+            // Set the user's input text in the editor
+            cbSearchBar.getEditor().setText(newText);
+            cbSearchBar.getEditor().end();// Move the caret to the end of the text
+            String searchBarResult = cbSearchBar.getSelectionModel().getSelectedItem();
+            lvCurrentPlayList.getSelectionModel().select(searchBarResult);
+            System.out.println(searchBarResult);
+
+            try {
+
+
+            if (!searchBarResult.isEmpty()) {
+
+                String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
+                String titleOnly = sbResult;
+                URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                if (searchBarURl != null) {
+                    mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
+                    songNameDisplay();
+                    imageLoader();
+                }
+                if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    mediaPlayer.stop();
+                }else{
+                    mediaPlayer.play();
+                }
+
+                }
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+
+
 
     // Helper method to show simple errors as alerts in scene builder instead of the console
     private void showAlert(String title, String message) {
