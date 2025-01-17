@@ -24,8 +24,6 @@ import java.util.Objects;
 public class HelloController {
 
     private double previousVolume = 0.5; // Stores last volume before mute
-    private final String MUTE_IMAGE = "/bntImages/bntMute.png";  // Path to mute icon
-    private final String UNMUTE_IMAGE = "/bntImages/sVolume.png";  // Path to unmute icon
 
     @FXML private ImageView bntMuteIcon;
     @FXML private ListView<String> lvAllPlayLists;
@@ -34,7 +32,7 @@ public class HelloController {
     @FXML private ImageView ivMainImage;
     @FXML private Label myDuration, songDisplay;
     @FXML private ComboBox<String> cbSearchBar;
-    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist, bntMute;
+    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
     @FXML private Slider mySliderDuration, mySliderVolume;
 
     private MediaPlayer mediaPlayer;
@@ -62,11 +60,16 @@ public class HelloController {
 
         }else{
             System.out.println("offline connection");
-            OfflineloadMusicFiles();
+            OfflineLoadMusicFiles();
 
         }
 
     }
+
+    /**
+     * Play and Pause song feature for the media player
+     * made for the user to be able to pause and play the song
+     */
     @FXML
     private void onPausePlay() {
         if(mediaPlayer != null)
@@ -78,12 +81,21 @@ public class HelloController {
             }
         }
     }
+
+    /**
+     * Stop button for when you want to stop the song completely
+     * reset the song duration too
+     */
     @FXML
     private void onStopPlay() {
         if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.stop();
         }
     }
+
+    /**
+     * Repeat function for the user to repeat a song
+     */
     @FXML
     private void onRepeatEnable(){
         if(mediaPlayer.isAutoPlay()){
@@ -99,6 +111,10 @@ public class HelloController {
         }
 
     }
+
+    /**
+     * Skips the current song and plays the next
+     */
     @FXML
     private void nextSong(){
         lvCurrentPlayList.getSelectionModel().select(lvCurrentPlayList.getSelectionModel().getSelectedIndex()+1);
@@ -110,6 +126,10 @@ public class HelloController {
         durationAdder(titleOnly);
 
     }
+
+    /**
+     * Plays the previous song only if the index number of the song isn't 0
+     */
     @FXML
     private void previousSong(){
         if(lvCurrentPlayList.getSelectionModel().getSelectedIndex() > 0){
@@ -124,7 +144,10 @@ public class HelloController {
     }
 
 
-
+    /**
+     * Checks if the media player is being used and makes so it start at zero seconds
+     *
+     */
     private void checkCurrentSong() {
         if(mediaPlayer != null && mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
             mediaPlayer.stop();
@@ -142,6 +165,10 @@ public class HelloController {
         }
     }
 
+    /**
+     * load the songs from the file and from the database and displays the song name + artist form the
+     * database and set the songs that it find to valid song that we can use for the listview and other code
+     */
     void loadSongs() {
         // Get song names from the database
         var databaseSongs = songService.getAllSongs();
@@ -202,7 +229,11 @@ public class HelloController {
             }
         }
     }
-    private void OfflineloadMusicFiles() {
+
+    /**
+     * load the song only from the files and displays them
+     */
+    private void OfflineLoadMusicFiles() {
         URL offlineMusicFolderUrl = getClass().getResource("/Music");
         if (offlineMusicFolderUrl != null) {
             try {
@@ -226,6 +257,11 @@ public class HelloController {
         }
     }
 
+    /**
+     * OnSongSelected is a mouse on click event that plays the song the mouse click on and makes the mediaPlayer
+     * And play the song and makes it so listview has an available index for the skip for and other functions
+     * @param ignoredEvent
+     */
     @FXML
     public void onSongSelected(MouseEvent ignoredEvent) {
         String selectedSong = lvCurrentPlayList.getSelectionModel().getSelectedItem();
@@ -263,6 +299,10 @@ public class HelloController {
         imageLoader();
     }
 
+    /**
+     * method for adding the duration of the song to the slider and label
+     * @param titleOnly
+     */
     private void durationAdder(String titleOnly) {
         String durationStr = songService.getSongDuration(titleOnly);
         int totalSeconds = parseDuration(durationStr);
@@ -281,6 +321,10 @@ public class HelloController {
         });
     }
 
+    /**
+     * Loads images from the image folder using a relative path and displays them
+     * if the user would like have other images than those that are there they can just add them to the folder
+     */
     private void imageLoader() {
         // Load a random image from the Images folder
         try {
@@ -316,30 +360,25 @@ public class HelloController {
         ivMainImage.setPreserveRatio(true);
     }
 
+    /**
+     * make the image all the same for the image-loader
+     * @param fileName
+     * @return
+     */
     private boolean isImageFile(String fileName) {
         String lowerCaseName = fileName.toLowerCase();
         return lowerCaseName.endsWith(".jpg") || lowerCaseName.endsWith(".png") || lowerCaseName.endsWith(".jpeg");
     }
 
-    // Loads our playlists into the listview
+    /**
+     * Load the playlist added and in the database
+     */
     private void loadPlaylists() {
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
 
     /**
-     * Handles the action when the "Add Playlist" button is clicked.
-     * This method updates the user interface to initiate the process of creating a new playlist.
-     * It hides the "Add" and "Delete" playlist buttons and displays the text field for entering
-     * the playlist name along with the "Confirm" and "Cancel" buttons. The text field is also
-     * cleared to ensure no pre-existing content is displayed.
-     * Key UI Changes:
-     * - Hides the "Add Playlist" button.
-     * - Hides the "Delete Playlist" button.
-     * - Displays the playlist name text field.
-     * - Displays the "Confirm" button.
-     * - Displays the "Cancel" button.
-     * - Clears the content of the playlist name text field.
-     * This method prepares the UI for the user to input the name for a new playlist.
+     * button visibility for adding playlist
      */
     @FXML
     private void onAddPlaylistClicked()
@@ -427,6 +466,9 @@ public class HelloController {
         resetPlaylistUI();
     }
 
+    /**
+     * Delete the chosen playlist and confirm the choice. it removes it from the database
+     */
     @FXML
     private void deleteSelectedPlaylist() {
         if (pendingDeletePlaylist == null) {
@@ -445,21 +487,35 @@ public class HelloController {
         pendingDeletePlaylist = null;  // Reset the stored playlist
     }
 
+    /**
+     * Cancel the progress of adding or deleting playlist
+     */
     @FXML
     private void onCancelPlaylist()
     {
         resetPlaylistUI();
     }
 
-
+    /**
+     * Refresh the listview for the playlists
+     */
     // Refreshes the playlist, so the deleted or added playlists are shown correctly
     private void refreshPlaylists() {
         // Reload the playlists from the database after deletion
         lvAllPlayLists.setItems(FXCollections.observableArrayList(playlistService.getAllPlaylists()));
     }
+
+    /**
+     * Displays the song title on the current song Label fxid SongDisplay
+     * when songs are played
+     */
     private void songNameDisplay(){
         songDisplay.setText(lvCurrentPlayList.getSelectionModel().getSelectedItem());
     }
+
+    /**
+     * Makes the combobox into a search function and play the songs from their index number
+     */
     private void setCbSearchBar(){
         cbSearchBar.setEditable(true);
         cbSearchBar.getEditor().textProperty().addListener((obs, oldText, newText) -> {
@@ -508,9 +564,14 @@ public class HelloController {
             }
         });
     }
+
+    /**
+     * Shuffle the playlist via collections and refreshes after
+     */
     @FXML
     private void shufflePlaylist() {
-        ObservableList<String> ShuffledPlaylists = FXCollections.observableArrayList(lvCurrentPlayList.getItems());
+        ObservableList<String> ShuffledPlaylists =
+                FXCollections.observableArrayList(lvCurrentPlayList.getItems());
         Collections.shuffle(ShuffledPlaylists);
         lvCurrentPlayList.setItems(ShuffledPlaylists);
         lvCurrentPlayList.refresh();
@@ -518,9 +579,11 @@ public class HelloController {
     }
 
 
-
-
-    // Helper method to show simple errors as alerts in scene builder instead of the console
+    /**
+     * Helper method to show simple errors as alerts in scene builder instead of the console
+     * @param title
+     * @param message
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -529,6 +592,9 @@ public class HelloController {
         alert.showAndWait();
     }
 
+    /**
+     * Drag function for the Duration slider
+     */
     @FXML
     private void onSliderDragged() {
         if (mediaPlayer != null) {
@@ -536,6 +602,11 @@ public class HelloController {
         }
     }
 
+    /**
+     * Update the label timer
+     * @param current
+     * @param total
+     */
     @FXML
     private void updateDurationLabel(Duration current, Duration total) {
         String currentTime = formatDuration(current);
@@ -543,13 +614,22 @@ public class HelloController {
         myDuration.setText(currentTime + " / " + totalTime);
     }
 
+    /**
+     * Formats the duration
+     * @param duration
+     * @return
+     */
     private String formatDuration(Duration duration) {
         int minutes = (int) duration.toMinutes();
         int seconds = (int) duration.toSeconds() % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    // Convert "MM:SS" from database to total seconds
+    /**
+     * Convert "MM:SS" from database to total seconds
+     * @param durationStr
+     * @return
+     */
     private int parseDuration(String durationStr) {
         try {
             String[] parts = durationStr.split(":");
@@ -561,6 +641,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Mute button to mute the song playing
+     */
     @FXML
     private void onMuteToggle() {
         if (mediaPlayer != null) {
@@ -581,11 +664,22 @@ public class HelloController {
         }
     }
 
+    /**
+     * Updates the mute button for vux use
+     * @param isMuted
+     */
     private void updateMuteIcon(boolean isMuted) {
+        // Path to mute icon
+        String MUTE_IMAGE = "/bntImages/bntMute.png";
+        // Path to unmute icon
+        String UNMUTE_IMAGE = "/bntImages/sVolume.png";
         String imagePath = isMuted ? MUTE_IMAGE : UNMUTE_IMAGE;
         bntMuteIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath))));
     }
 
+    /**
+     * Slider for volume Changing
+     */
     @FXML
     private void onVolumeChange() {
         if (mediaPlayer != null) {
