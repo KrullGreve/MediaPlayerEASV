@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -105,6 +106,8 @@ public class HelloController {
         checkCurrentSong();
         imageLoader();
         songNameDisplay();
+        String titleOnly = lvCurrentPlayList.getSelectionModel().getSelectedItem().split(" - ")[0];
+        durationAdder(titleOnly);
 
     }
     @FXML
@@ -114,6 +117,8 @@ public class HelloController {
             checkCurrentSong();
             imageLoader();
             songNameDisplay();
+            String titleOnly = lvCurrentPlayList.getSelectionModel().getSelectedItem().split(" - ")[0];
+            durationAdder(titleOnly);
         }
 
     }
@@ -243,21 +248,7 @@ public class HelloController {
                         mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(songUrl.toURI().toString()));
                         songNameDisplay();
                     }
-                    String durationStr = songService.getSongDuration(titleOnly);
-                    int totalSeconds = parseDuration(durationStr);
-                    Duration totalDuration = Duration.seconds(totalSeconds);
-
-                    mediaPlayer.setOnReady(() -> {
-                        mySliderDuration.setMax(totalDuration.toSeconds()); // Set max slider value
-                        updateDurationLabel(Duration.ZERO, totalDuration);
-                    });
-
-                    mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
-                        if (!mySliderDuration.isValueChanging()) {
-                            mySliderDuration.setValue(newTime.toSeconds());
-                        }
-                        updateDurationLabel(newTime, totalDuration);
-                    });
+                    durationAdder(titleOnly);
 
                     mediaPlayer.play();
                 } else {
@@ -270,6 +261,24 @@ public class HelloController {
 
         }
         imageLoader();
+    }
+
+    private void durationAdder(String titleOnly) {
+        String durationStr = songService.getSongDuration(titleOnly);
+        int totalSeconds = parseDuration(durationStr);
+        Duration totalDuration = Duration.seconds(totalSeconds);
+
+        mediaPlayer.setOnReady(() -> {
+            mySliderDuration.setMax(totalDuration.toSeconds()); // Set max slider value
+            updateDurationLabel(Duration.ZERO, totalDuration);
+        });
+
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!mySliderDuration.isValueChanging()) {
+                mySliderDuration.setValue(newTime.toSeconds());
+            }
+            updateDurationLabel(newTime, totalDuration);
+        });
     }
 
     private void imageLoader() {
@@ -471,15 +480,16 @@ public class HelloController {
             cbSearchBar.getEditor().end();// Move the caret to the end of the text
             String searchBarResult = cbSearchBar.getSelectionModel().getSelectedItem();
             lvCurrentPlayList.getSelectionModel().select(searchBarResult);
-            System.out.println(searchBarResult);
+
 
             try {
 
 
-            if (!searchBarResult.isEmpty()) {
+            if (searchBarResult != null) {
 
                 String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
-                URL searchBarURl = getClass().getResource("/Music/" + sbResult + ".mp3");
+                String titleOnly = sbResult.split(" - ")[0];
+                URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
                 if (searchBarURl != null) {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
                     songNameDisplay();
@@ -488,6 +498,7 @@ public class HelloController {
                 if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                     mediaPlayer.stop();
                 }else{
+                    durationAdder(titleOnly);
                     mediaPlayer.play();
                 }
 
@@ -496,6 +507,14 @@ public class HelloController {
                 throw new RuntimeException(e);
             }
         });
+    }
+    @FXML
+    private void shufflePlaylist() {
+        ObservableList<String> ShuffledPlaylists = FXCollections.observableArrayList(lvCurrentPlayList.getItems());
+        Collections.shuffle(ShuffledPlaylists);
+        lvCurrentPlayList.setItems(ShuffledPlaylists);
+        lvCurrentPlayList.refresh();
+
     }
 
 
