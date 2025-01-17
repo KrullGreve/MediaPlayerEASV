@@ -479,8 +479,7 @@ public class HelloController {
             if (!searchBarResult.isEmpty()) {
 
                 String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
-                String titleOnly = sbResult;
-                URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+                URL searchBarURl = getClass().getResource("/Music/" + sbResult + ".mp3");
                 if (searchBarURl != null) {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
                     songNameDisplay();
