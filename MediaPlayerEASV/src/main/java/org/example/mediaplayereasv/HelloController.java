@@ -15,7 +15,10 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Objects;
 
 
 public class HelloController {
@@ -27,7 +30,7 @@ public class HelloController {
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
-    @FXML private Label myDuration, songDisplay;
+    @FXML private Label myDuration, songDisplay, fullDuration;
     @FXML private ComboBox<String> cbSearchBar;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
     @FXML private Slider mySliderDuration, mySliderVolume;
@@ -54,11 +57,14 @@ public class HelloController {
 
             loadPlaylists();
             loadSongs();
+            playListDuration();
         }else{
             System.out.println("offline connection");
             OfflineLoadMusicFiles();
 
         }
+        refreshPlaylists();
+
 
     }
 
@@ -155,6 +161,7 @@ public class HelloController {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
                 }
                 mediaPlayer.play();
+                autoNextSong();
             }catch (URISyntaxException e){
                 System.out.println("Error loading music files: " + e.getMessage());
             }
@@ -256,7 +263,7 @@ public class HelloController {
     /**
      * OnSongSelected is a mouse on click event that plays the song the mouse click on and makes the mediaPlayer
      * And play the song and makes it so listview has an available index for the skip for and other functions
-
+     * @param ignoredEvent
      */
     @FXML
     public void onSongSelected(MouseEvent ignoredEvent) {
@@ -283,6 +290,7 @@ public class HelloController {
                     durationAdder(titleOnly);
 
                     mediaPlayer.play();
+                    autoNextSong();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
                 }
@@ -297,7 +305,7 @@ public class HelloController {
 
     /**
      * method for adding the duration of the song to the slider and label
-     * @param titleOnly Takes only the title of the songs
+     * @param titleOnly
      */
     private void durationAdder(String titleOnly) {
         String durationStr = songService.getSongDuration(titleOnly);
@@ -358,8 +366,8 @@ public class HelloController {
 
     /**
      * make the image all the same for the image-loader
-     * @param fileName Take the file names and sets them to lowercase
-
+     * @param fileName
+     * @return
      */
     private boolean isImageFile(String fileName) {
         String lowerCaseName = fileName.toLowerCase();
@@ -552,6 +560,7 @@ public class HelloController {
                 }else{
                     durationAdder(titleOnly);
                     mediaPlayer.play();
+                    autoNextSong();
                 }
 
                 }
@@ -600,8 +609,8 @@ public class HelloController {
 
     /**
      * Update the label timer
-     * @param current take the current time of the song
-     * @param total takes the total time of the songs
+     * @param current
+     * @param total
      */
     @FXML
     private void updateDurationLabel(Duration current, Duration total) {
@@ -612,7 +621,8 @@ public class HelloController {
 
     /**
      * Formats the duration
-     * @param duration takes the duration
+     * @param duration
+     * @return
      */
     private String formatDuration(Duration duration) {
         int minutes = (int) duration.toMinutes();
@@ -623,6 +633,7 @@ public class HelloController {
     /**
      * Convert "MM:SS" from database to total seconds
      * @param durationStr
+     * @return
      */
     private int parseDuration(String durationStr) {
         try {
@@ -660,7 +671,7 @@ public class HelloController {
 
     /**
      * Updates the mute button for vux use
-     * @param isMuted boolean for mute check
+     * @param isMuted
      */
     private void updateMuteIcon(boolean isMuted) {
         // Path to mute icon
@@ -682,6 +693,48 @@ public class HelloController {
         }
     }
 
+    private void autoNextSong() {
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                nextSong();
+            }
+        });
+    }
+
+    private void playListDuration() {
+        lvAllPlayLists.getSelectionModel().select(0); // For testing; remove in production
+
+        if (lvAllPlayLists.getSelectionModel().getSelectedIndex() == -1) {
+            System.out.println("No playlist selected.");
+            return;
+        }
+
+        int totalDuration = 0; // Variable to store the total duration
+
+        for (String song : songService.getAllSongs()) {
+            String[] parts = song.split(" - ");
+            if (parts.length > 0) {
+                String title = parts[0].trim(); // Extract and trim the title
+                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+
+                try {
+                    // Convert MM:SS format to total seconds
+                    int duration = parseDuration(durationStr);
+                    totalDuration += duration;
+                    System.out.println("Song: " + title + ", Duration: " + duration);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing duration for: " + song);
+                }
+            } else {
+                System.out.println("Invalid song format: " + song);
+            }
+        }
+
+        // Convert total duration to MM:SS format and update label
+        fullDuration.setText(formatDuration(Duration.seconds(totalDuration)));
+        System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
+    }
 
 
 
