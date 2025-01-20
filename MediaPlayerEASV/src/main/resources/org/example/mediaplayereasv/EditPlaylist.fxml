@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="400" prefWidth="600" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="org.example.mediaplayereasv.EditPlaylistController">
     <children>
         <!-- Playlist Name Label -->
-        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;" text="Editing Playlist: [Playlist Name]" />
+        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;"/>
 
         <!-- Available Songs List -->
         <VBox layoutX="20.0" layoutY="60.0" prefHeight="300" prefWidth="260">

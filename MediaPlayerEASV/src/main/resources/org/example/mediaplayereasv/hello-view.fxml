@@ -129,13 +129,18 @@
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin></ListView>
+            <HBox alignment="CENTER" prefHeight="15.0" prefWidth="278.0">
+               <children>
+                  <Label fx:id="fullDuration" alignment="CENTER" textAlignment="CENTER" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </right>
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvAllPlayLists" editable="true" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" editable="true" onMouseClicked="#onPlayListSelected" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>

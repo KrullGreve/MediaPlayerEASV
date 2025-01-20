@@ -4,15 +4,20 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -24,6 +29,9 @@ import java.util.Objects;
 
 public class HelloController {
 
+
+    public String onPlaylistSelected;
+    public String getPlaylistName;
     private double previousVolume = 0.5; // Stores last volume before mute
 
     @FXML private ImageView bntMuteIcon;
@@ -31,9 +39,9 @@ public class HelloController {
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
-    @FXML private Label myDuration, songDisplay;
+    @FXML private Label myDuration, songDisplay, fullDuration;
     @FXML private ComboBox<String> cbSearchBar;
-    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
+    @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist, btnEditPlaylist;
     @FXML private Slider mySliderDuration, mySliderVolume;
     @FXML private HBox HBoxMainButtons, HBoxEditMode;
 
@@ -45,6 +53,9 @@ public class HelloController {
 
     // Stores the Deletion of playlists
     private String pendingDeletePlaylist = null;
+
+    private String pendingEditPlaylist = null;
+
 
 
 
@@ -711,8 +722,84 @@ public class HelloController {
     }
 
     @FXML
+    private void onPlayListSelected()
+    {
+        lvAllPlayLists.getSelectionModel().getSelectedIndex();
+        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() != -1){
+            playListDuration();
+        }else {
+            System.out.println("no playlist selected" + lvAllPlayLists.getSelectionModel().getSelectedIndex());
+        }
+    }
+
+
+    private String getPlaylistName()
+    {
+        String playlistName = pendingEditPlaylist;
+        System.out.println(playlistName);
+
+        return playlistName;
+    }
+
+    private void playListDuration() {
+        int totalDuration = 0; // Variable to store the total duration
+
+        for (String song : songService.getAllSongs()) {
+            String[] parts = song.split(" - ");
+            if (parts.length > 0) {
+                String title = parts[0].trim(); // Extract and trim the title
+                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+
+                try {
+                    // Convert MM:SS format to total seconds
+                    int duration = parseDuration(durationStr);
+                    totalDuration += duration;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing duration for: " + song);
+                }
+            } else {
+                System.out.println("Invalid song format: " + song);
+            }
+        }
+
+        // Convert total duration to MM:SS format and update label
+        fullDuration.setText(formatDuration(Duration.seconds(totalDuration)));
+        System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
+    }
+
+    @FXML
     private void onEditPlaylistClicked()
     {
+        pendingEditPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
+        System.out.println("Chosen playlist: " + pendingEditPlaylist);
+
+        if(pendingEditPlaylist != null)
+        {
+            try
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditPlaylist.fxml"));
+                Parent root = fxmlLoader.load();
+
+                EditPlaylistController editController = fxmlLoader.getController();
+
+                String selectedPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
+                editController.setPlaylistName(selectedPlaylist);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Playlist");
+                stage.show();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            showAlert("Error", "Playlist Not Found");
+        }
 
     }
 }

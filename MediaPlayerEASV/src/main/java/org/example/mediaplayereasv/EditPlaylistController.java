@@ -2,6 +2,7 @@ package org.example.mediaplayereasv;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -17,38 +18,47 @@ import java.util.List;
 public class EditPlaylistController
 {
     @FXML private Label lblPlaylistName;
-    @FXML private ListView<String> lvAvailableSongs, lvSongsInPlaylist;
+    @FXML private ListView<String> lvAvailableSongs, lvSongsInPlaylist, lvAllPlaylists;
+    @FXML private ListView<String> lvPlaylists;
 
     private String currentPlaylistName;
     private SongServ songService = new SongServ();
 
+    private String playlistName;
+
+
+    HelloController mainController = new HelloController();
+
+    private ObservableList<String> availableSongList = FXCollections.observableArrayList();  // The list to hold Song objects
+
     @FXML
     public void initialize()
     {
-        loadAvailableSongs();
+        setPlaylistName("");
 
-        if(currentPlaylistName != null)
-        {
-            lblPlaylistName.setText("Editing Playlist: " + currentPlaylistName);
-        }
+        loadAvailableSongs();
+        lvAvailableSongs.setItems(availableSongList);
     }
 
     public void setPlaylistName(String playlistName)
     {
-        this.currentPlaylistName = playlistName;
+        this.playlistName = playlistName;
+        lblPlaylistName.setText("Editing Playlist: " + playlistName);
+        if(playlistName != null)
+        {
+            System.out.println("Current playlist: " + playlistName);
+        }
     }
 
     private void loadAvailableSongs()
     {
-        List<String> songs = getAllSongs();
+        availableSongList.addAll(songService.getAllSongs());
 
     }
 
-    private List<String> getAllSongs()
+    @FXML
+    private void onAddSong()
     {
-        List<String> songs = new ArrayList<>();
-        String sql = "SELECT Title FROM Song";
 
-        
     }
 }
