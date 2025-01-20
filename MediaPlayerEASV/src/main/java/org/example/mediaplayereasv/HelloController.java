@@ -51,7 +51,7 @@ public class HelloController {
 
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
-
+        lvAllPlayLists.getSelectionModel().select(0);
         if(DB.testConnection()) {
             System.out.println("Connected to DB");
 
@@ -701,14 +701,23 @@ public class HelloController {
             }
         });
     }
+    @FXML
+    private void OnplayListSelected(){
 
-    private void playListDuration() {
-        lvAllPlayLists.getSelectionModel().select(0); // For testing; remove in production
-
-        if (lvAllPlayLists.getSelectionModel().getSelectedIndex() == -1) {
-            System.out.println("No playlist selected.");
-            return;
+        lvAllPlayLists.getSelectionModel().getSelectedIndex();
+        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() == -1){
+            playListDuration();
+        }else {
+            System.out.println("no playlist selected" + lvAllPlayLists.getSelectionModel().getSelectedIndex());
         }
+
+    }
+
+    //Pending Changes missing
+    private void playListDuration() {
+
+
+
 
         int totalDuration = 0; // Variable to store the total duration
 
@@ -722,7 +731,7 @@ public class HelloController {
                     // Convert MM:SS format to total seconds
                     int duration = parseDuration(durationStr);
                     totalDuration += duration;
-                    System.out.println("Song: " + title + ", Duration: " + duration);
+
                 } catch (NumberFormatException e) {
                     System.out.println("Error parsing duration for: " + song);
                 }
