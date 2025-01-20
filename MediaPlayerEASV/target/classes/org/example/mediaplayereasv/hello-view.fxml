@@ -10,7 +10,7 @@
     <bottom>
         <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <children>
-            <Label fx:id="songDisplay" alignment="CENTER" prefWidth="1000000.0" text="Current Song">
+            <Label fx:id="songDisplay" alignment="CENTER" prefWidth="1000000.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -18,7 +18,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" text="00:00" />
+                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" />
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
                     <children>
                         <Slider fx:id="mySliderDuration" blockIncrement="1.0" onMouseReleased="#onSliderDragged" HBox.hgrow="ALWAYS">
@@ -131,7 +131,7 @@
                </VBox.margin></ListView>
             <HBox alignment="CENTER">
                <children>
-                  <Label fx:id="fullDuration" text="Label" />
+                  <Label fx:id="fullDuration" />
                </children>
             </HBox>
          </children>
@@ -140,7 +140,7 @@
    <left>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="lvAllPlayLists" editable="true" VBox.vgrow="ALWAYS">
+            <ListView fx:id="lvAllPlayLists" editable="true" onMouseClicked="#OnplayListSelected" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
