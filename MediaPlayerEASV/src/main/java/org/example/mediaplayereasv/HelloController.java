@@ -15,10 +15,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 
 public class HelloController {
@@ -57,7 +54,6 @@ public class HelloController {
 
             loadPlaylists();
             loadSongs();
-
         }else{
             System.out.println("offline connection");
             OfflineLoadMusicFiles();
@@ -260,7 +256,7 @@ public class HelloController {
     /**
      * OnSongSelected is a mouse on click event that plays the song the mouse click on and makes the mediaPlayer
      * And play the song and makes it so listview has an available index for the skip for and other functions
-     * @param ignoredEvent
+
      */
     @FXML
     public void onSongSelected(MouseEvent ignoredEvent) {
@@ -301,7 +297,7 @@ public class HelloController {
 
     /**
      * method for adding the duration of the song to the slider and label
-     * @param titleOnly
+     * @param titleOnly Takes only the title of the songs
      */
     private void durationAdder(String titleOnly) {
         String durationStr = songService.getSongDuration(titleOnly);
@@ -362,8 +358,8 @@ public class HelloController {
 
     /**
      * make the image all the same for the image-loader
-     * @param fileName
-     * @return
+     * @param fileName Take the file names and sets them to lowercase
+
      */
     private boolean isImageFile(String fileName) {
         String lowerCaseName = fileName.toLowerCase();
@@ -604,8 +600,8 @@ public class HelloController {
 
     /**
      * Update the label timer
-     * @param current
-     * @param total
+     * @param current take the current time of the song
+     * @param total takes the total time of the songs
      */
     @FXML
     private void updateDurationLabel(Duration current, Duration total) {
@@ -616,8 +612,7 @@ public class HelloController {
 
     /**
      * Formats the duration
-     * @param duration
-     * @return
+     * @param duration takes the duration
      */
     private String formatDuration(Duration duration) {
         int minutes = (int) duration.toMinutes();
@@ -628,7 +623,6 @@ public class HelloController {
     /**
      * Convert "MM:SS" from database to total seconds
      * @param durationStr
-     * @return
      */
     private int parseDuration(String durationStr) {
         try {
@@ -666,7 +660,7 @@ public class HelloController {
 
     /**
      * Updates the mute button for vux use
-     * @param isMuted
+     * @param isMuted boolean for mute check
      */
     private void updateMuteIcon(boolean isMuted) {
         // Path to mute icon
@@ -687,6 +681,8 @@ public class HelloController {
             mediaPlayer.setVolume(volume);
         }
     }
+
+
 
 
 
