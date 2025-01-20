@@ -30,7 +30,7 @@ public class HelloController {
     @FXML private ListView<String> lvCurrentPlayList;
     @FXML private TextField tfPlaylistName;
     @FXML private ImageView ivMainImage;
-    @FXML private Label myDuration, songDisplay;
+    @FXML private Label myDuration, songDisplay, fullDuration;
     @FXML private ComboBox<String> cbSearchBar;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
     @FXML private Slider mySliderDuration, mySliderVolume;
@@ -57,12 +57,14 @@ public class HelloController {
 
             loadPlaylists();
             loadSongs();
-
+            playListDuration();
         }else{
             System.out.println("offline connection");
             OfflineLoadMusicFiles();
 
         }
+        refreshPlaylists();
+
 
     }
 
@@ -159,6 +161,7 @@ public class HelloController {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
                 }
                 mediaPlayer.play();
+                autoNextSong();
             }catch (URISyntaxException e){
                 System.out.println("Error loading music files: " + e.getMessage());
             }
@@ -287,6 +290,7 @@ public class HelloController {
                     durationAdder(titleOnly);
 
                     mediaPlayer.play();
+                    autoNextSong();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
                 }
@@ -556,6 +560,7 @@ public class HelloController {
                 }else{
                     durationAdder(titleOnly);
                     mediaPlayer.play();
+                    autoNextSong();
                 }
 
                 }
@@ -687,6 +692,50 @@ public class HelloController {
             mediaPlayer.setVolume(volume);
         }
     }
+
+    private void autoNextSong() {
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                nextSong();
+            }
+        });
+    }
+
+    private void playListDuration() {
+        lvAllPlayLists.getSelectionModel().select(0); // For testing; remove in production
+
+        if (lvAllPlayLists.getSelectionModel().getSelectedIndex() == -1) {
+            System.out.println("No playlist selected.");
+            return;
+        }
+
+        int totalDuration = 0; // Variable to store the total duration
+
+        for (String song : songService.getAllSongs()) {
+            String[] parts = song.split(" - ");
+            if (parts.length > 0) {
+                String title = parts[0].trim(); // Extract and trim the title
+                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+
+                try {
+                    // Convert MM:SS format to total seconds
+                    int duration = parseDuration(durationStr);
+                    totalDuration += duration;
+                    System.out.println("Song: " + title + ", Duration: " + duration);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing duration for: " + song);
+                }
+            } else {
+                System.out.println("Invalid song format: " + song);
+            }
+        }
+
+        // Convert total duration to MM:SS format and update label
+        fullDuration.setText(formatDuration(Duration.seconds(totalDuration)));
+        System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
+    }
+
 
 
 
