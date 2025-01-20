@@ -140,30 +140,22 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </ListView>
-            <HBox alignment="CENTER">
-               <children>
-                  <Button fx:id="btnAddPlaylist" alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnDeletePlaylist" alignment="CENTER" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font></Button>
-                  <TextField fx:id="tfPlaylistName" promptText="Enter Playlist Name" visible="false" />
-                  <Button fx:id="btnConfirmPlaylist" alignment="CENTER" layoutX="33.0" layoutY="32.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onConfirmPlaylist" prefHeight="40.0" prefWidth="40.0" text="✔" textAlignment="CENTER" visible="false" wrapText="true">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnCancelPlaylist" layoutX="54.0" layoutY="32.0" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#onCancelPlaylist" prefHeight="40.0" prefWidth="40.0" text="❌" visible="false">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+             <StackPane fx:id="stackPaneButtons" maxHeight="40.0" maxWidth="248.0" prefHeight="38.0" prefWidth="248.0">
+                 <HBox fx:id="HBoxMainButtons" alignment="CENTER" spacing="10">
+                     <children>
+                         <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" />
+                         <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-" />
+                         <Button fx:id="btnEditPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onEditPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="📝" />
+                     </children>
+                 </HBox>
+                 <HBox fx:id="HBoxEditMode" alignment="CENTER" spacing="10" visible="false">
+                     <children>
+                         <TextField fx:id="tfPlaylistName" prefHeight="36.0" prefWidth="147.0" promptText="Enter Playlist Name" />
+                         <Button fx:id="btnConfirmPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onConfirmPlaylist" prefHeight="40.0" prefWidth="40.0" text="✔" />
+                         <Button fx:id="btnCancelPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onCancelPlaylist" prefHeight="40.0" prefWidth="40.0" text="❌" />
+                     </children>
+                 </HBox>
+             </StackPane>
          </children>
       </VBox>
    </left>
@@ -178,9 +170,6 @@
         </rowConstraints>
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../../../bntImages/Icon.png" />
-               </image>
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></ImageView>

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
@@ -34,6 +35,7 @@ public class HelloController {
     @FXML private ComboBox<String> cbSearchBar;
     @FXML private Button btnAddPlaylist, btnDeletePlaylist, btnConfirmPlaylist, btnCancelPlaylist;
     @FXML private Slider mySliderDuration, mySliderVolume;
+    @FXML private HBox HBoxMainButtons, HBoxEditMode;
 
     private MediaPlayer mediaPlayer;
 
@@ -388,12 +390,27 @@ public class HelloController {
         btnDeletePlaylist.setVisible(false);
 
         // Show text field and confirm/cancel buttons
+
         tfPlaylistName.setVisible(true);
         btnConfirmPlaylist.setVisible(true);
         btnCancelPlaylist.setVisible(true);
 
         // Clears the text field
         tfPlaylistName.clear();
+        switchToEditMode();
+    }
+
+
+    private void switchToEditMode()
+    {
+        HBoxMainButtons.setVisible(false);
+        HBoxEditMode.setVisible(true);
+    }
+
+    private void switchToMainMode()
+    {
+        HBoxMainButtons.setVisible(true);
+        HBoxEditMode.setVisible(false);
     }
 
 
@@ -440,6 +457,9 @@ public class HelloController {
         btnConfirmPlaylist.setText("✅");  // Set confirm button to delete mode
         btnConfirmPlaylist.setVisible(true);
         btnCancelPlaylist.setVisible(true);
+
+        switchToEditMode();
+        tfPlaylistName.setVisible(false);
     }
 
 
@@ -464,6 +484,7 @@ public class HelloController {
             }
         }
         resetPlaylistUI();
+        switchToMainMode();
     }
 
     /**
@@ -494,6 +515,7 @@ public class HelloController {
     private void onCancelPlaylist()
     {
         resetPlaylistUI();
+        switchToMainMode();
     }
 
     /**
@@ -688,6 +710,9 @@ public class HelloController {
         }
     }
 
+    @FXML
+    private void onEditPlaylistClicked()
+    {
 
-
+    }
 }
