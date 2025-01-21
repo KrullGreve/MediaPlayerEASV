@@ -48,8 +48,7 @@ public class PlaylistServ
 
         if (con != null && !con.isClosed()) {
             try {
-                // Step 1: Split songWithArtist to get the title and artist
-                String[] parts = songWithArtist.split(" - ", 2); // Split into "Song name" and "Artist Name"
+                String[] parts = songWithArtist.split(" - ", 2);
                 if (parts.length < 2) {
                     System.err.println("Invalid song format: " + songWithArtist);
                     return;
@@ -108,6 +107,4 @@ public class PlaylistServ
             System.err.println("Database connection is closed or invalid.");
         }
     }
-
-
 }
