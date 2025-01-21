@@ -55,7 +55,7 @@ public class EditPlaylistController
     }
 
     @FXML
-    private void onAddSongClicked(ActionEvent event)
+    private void onAddSongClicked(ActionEvent event) throws SQLException
     {
         String selectedSong = lvAvailableSongs.getSelectionModel().getSelectedItem();
 
@@ -64,14 +64,7 @@ public class EditPlaylistController
             mainController.showAlert("Error", "Please select a song to add. ");
             return;
         }
-        try
-        {
-            playlistService.addSongToPlaylist(playlistName, selectedSong);
-            mainController.showAlert("Success", "Song added to playlist: " + selectedSong);
-        }
-        catch (SQLException e)
-        {
-            mainController.showAlert("Error", e.getMessage());
-        }
+        playlistService.addSongToPlaylist(playlistName, selectedSong);
+        mainController.showAlert("Success", "Song added to playlist: " + selectedSong);
     }
 }

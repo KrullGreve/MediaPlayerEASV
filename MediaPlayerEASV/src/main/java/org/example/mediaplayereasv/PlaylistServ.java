@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -42,31 +43,71 @@ public class PlaylistServ
         return DB.deleteSQL(sql);
     }
 
-    public static void addSongToPlaylist(String playlistName, String songName) throws SQLException
-    {
-        String sql = "INSERT INTO PlaylistSongs (PlaylistId, SongId) " +
-                "SELECT p.PlaylistId, s.SongId FROM Playlists p, Songs s " +
-                "WHERE p.PlaylistName = ? AND s.Title = ?";
+    public void addSongToPlaylist(String playlistName, String songWithArtist) throws SQLException {
+        Connection con = DB.getConnection();  // Get the database connection
 
-        DB.getConnection();
-        System.out.println("Connecting to database...");
+        if (con != null && !con.isClosed()) {
+            try {
+                // Step 1: Split songWithArtist to get the title and artist
+                String[] parts = songWithArtist.split(" - ", 2); // Split into "Song name" and "Artist Name"
+                if (parts.length < 2) {
+                    System.err.println("Invalid song format: " + songWithArtist);
+                    return;
+                }
+                String songTitle = parts[0].trim();
+                String artistName = parts[1].trim();
 
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, playlistName);
-        System.out.println("PlaylistName: " + playlistName);
-        ps.setString(2, songName);
-        System.out.println("SongName: " + songName);
+                // Step 2: Get the SongId
+                String getSongIdQuery = "SELECT SongId FROM Songs WHERE Title = ? AND Artist = ?";
+                PreparedStatement getSongIdStmt = con.prepareStatement(getSongIdQuery);
+                getSongIdStmt.setString(1, songTitle);
+                getSongIdStmt.setString(2, artistName);
+                ResultSet songIdResult = getSongIdStmt.executeQuery();
 
-        int rowsAffected = ps.executeUpdate();
-        if(rowsAffected > 0)
-        {
-            System.out.println("Song added to playlist: " + songName);
+                int songId = -1; // Default value in case no result is found
+                if (songIdResult.next()) {
+                    songId = songIdResult.getInt("SongId");
+                } else {
+                    System.err.println("Song not found: " + songWithArtist);
+                    return; // Exit if the song is not found
+                }
+
+                // Step 3: Get the PlaylistId
+                String getPlaylistIdQuery = "SELECT PlaylistId FROM Playlists WHERE PlaylistName = ?";
+                PreparedStatement getPlaylistIdStmt = con.prepareStatement(getPlaylistIdQuery);
+                getPlaylistIdStmt.setString(1, playlistName);
+                ResultSet playlistIdResult = getPlaylistIdStmt.executeQuery();
+
+                int playlistId = -1; // Default value in case no result is found
+                if (playlistIdResult.next()) {
+                    playlistId = playlistIdResult.getInt("PlaylistId");
+                } else {
+                    System.err.println("Playlist not found: " + playlistName);
+                    return; // Exit if the playlist is not found
+                }
+
+                // Step 4: Insert into PlaylistSongs
+                String insertQuery = "INSERT INTO PlaylistSongs (PlaylistId, SongId) VALUES (?, ?)";
+                PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+                insertStmt.setInt(1, playlistId);
+                insertStmt.setInt(2, songId);
+
+                int rowsAffected = insertStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Song added successfully!");
+                } else {
+                    System.out.println("No rows were added.");
+                }
+
+            } catch (SQLException e) {
+                System.err.println("SQL Error: " + e.getMessage());
+            } finally {
+                con.close(); // Always close the connection
+            }
+        } else {
+            System.err.println("Database connection is closed or invalid.");
         }
-        else
-        {
-            throw new SQLException("Song could not be added to playlist: ");
-        }
-
-        ps.close();
     }
+
+
 }

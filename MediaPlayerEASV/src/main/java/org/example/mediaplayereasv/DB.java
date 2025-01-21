@@ -56,26 +56,42 @@ public class DB {
         }
     }
 
-    private static void connect() {
+    // Method to establish the database connection
+    private static void connect()
+    {
         try {
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:"+port+";databaseName="+databaseName, userName, password);
+            if (con == null || con.isClosed()) {
+                con = DriverManager.getConnection("jdbc:sqlserver://localhost:" + port + ";databaseName=" + databaseName, userName, password);
+                System.out.println("Database connection established.");
+            }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error establishing connection: " + e.getMessage());
         }
     }
 
     public static Connection getConnection() {
         if (con == null) {
-            connect();
+            connect();  // Establish the connection if it's null
+        }
+        try {
+            if (con.isClosed()) {
+                System.out.println("Connection is closed, reconnecting...");
+                connect();  // Reconnect if it's closed
+            }
+        } catch (SQLException e) {
+            System.err.println("Error checking connection status: " + e.getMessage());
         }
         return con;
     }
 
     private static void disconnect(){
         try {
-            con.close();
+            if (con != null && !con.isClosed()) {
+                con.close();
+                System.out.println("Database connection closed.");
+            }
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error closing connection: " + e.getMessage());
         }
     }
 
@@ -94,7 +110,7 @@ public class DB {
             if (rs!=null){
                 rs.close();
             }
-            getConnection();
+            connect();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             pendingData=true;
@@ -216,7 +232,6 @@ public class DB {
             connect();
             if (con != null && !con.isClosed()) {
                 disconnect();
-                System.out.println("Disconnected from the database.");
                 return true;
             }
         } catch (SQLException e) {
