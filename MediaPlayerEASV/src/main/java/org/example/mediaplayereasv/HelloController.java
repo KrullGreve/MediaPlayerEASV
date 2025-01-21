@@ -550,23 +550,31 @@ public class HelloController {
                 String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
                 String titleOnly = sbResult.split(" - ")[0];
                 URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
+
                 if (searchBarURl != null) {
+                    if(mediaPlayer != null){
+                        mediaPlayer.stop();
+                        mediaPlayer.seek(Duration.ZERO);
+                    }
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
+
+                    if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                        mediaPlayer.stop();
+                        mediaPlayer.seek(Duration.ZERO);
+                    } else {
+                        mediaPlayer.play();
+                    }
                     songNameDisplay();
                     imageLoader();
-                }
-                if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                    mediaPlayer.stop();
-                }else{
-                    durationAdder(titleOnly);
-                    mediaPlayer.play();
                     autoNextSong();
+                    durationAdder(titleOnly);
+                    cbSearchBar.getEditor().clear();
                 }
-
                 }
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
+
         });
     }
 
