@@ -10,19 +10,23 @@
         <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;" />
 
         <!-- Available Songs List -->
-        <VBox layoutX="20.0" layoutY="60.0" prefHeight="300" prefWidth="260">
+        <VBox alignment="CENTER" layoutX="20.0" layoutY="60.0" prefHeight="300" prefWidth="260">
             <Label style="-fx-font-size: 14;" text="Available Songs" />
             <ListView fx:id="lvAvailableSongs" />
-            <Button onAction="#onAddSongClicked" text="Add Song to Playlist">
+            <Button onAction="#onAddSongClicked" text="Add Song">
             <VBox.margin>
-               <Insets top="5.0" />
+               <Insets right="190.0" top="5.0" />
             </VBox.margin></Button>
         </VBox>
 
         <!-- Songs in Playlist -->
-        <VBox layoutX="320.0" layoutY="60.0" prefHeight="300" prefWidth="260">
+        <VBox alignment="CENTER" layoutX="320.0" layoutY="60.0" prefHeight="300" prefWidth="260">
             <Label style="-fx-font-size: 14;" text="Songs in Playlist" />
             <ListView fx:id="lvSongsInPlaylist" />
+            <Button onAction="#onRemoveSongClicked" text="Remove Song">
+            <VBox.margin>
+               <Insets left="170.0" top="5.0" />
+            </VBox.margin></Button>
         </VBox>
     </children>
 </AnchorPane>

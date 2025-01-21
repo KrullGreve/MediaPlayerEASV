@@ -43,13 +43,17 @@ public class PlaylistServ
         return DB.deleteSQL(sql);
     }
 
-    public void addSongToPlaylist(String playlistName, String songWithArtist) throws SQLException {
+    public void addSongToPlaylist(String playlistName, String songWithArtist) throws SQLException
+    {
         Connection con = DB.getConnection();  // Get the database connection
 
-        if (con != null && !con.isClosed()) {
-            try {
+        if (con != null && !con.isClosed())
+        {
+            try
+            {
                 String[] parts = songWithArtist.split(" - ", 2);
-                if (parts.length < 2) {
+                if (parts.length < 2)
+                {
                     System.err.println("Invalid song format: " + songWithArtist);
                     return;
                 }
@@ -64,9 +68,11 @@ public class PlaylistServ
                 ResultSet songIdResult = getSongIdStmt.executeQuery();
 
                 int songId = -1; // Default value in case no result is found
-                if (songIdResult.next()) {
+                if (songIdResult.next())
+                {
                     songId = songIdResult.getInt("SongId");
-                } else {
+                } else
+                {
                     System.err.println("Song not found: " + songWithArtist);
                     return; // Exit if the song is not found
                 }
@@ -78,9 +84,11 @@ public class PlaylistServ
                 ResultSet playlistIdResult = getPlaylistIdStmt.executeQuery();
 
                 int playlistId = -1; // Default value in case no result is found
-                if (playlistIdResult.next()) {
+                if (playlistIdResult.next())
+                {
                     playlistId = playlistIdResult.getInt("PlaylistId");
-                } else {
+                } else
+                {
                     System.err.println("Playlist not found: " + playlistName);
                     return; // Exit if the playlist is not found
                 }
@@ -92,16 +100,97 @@ public class PlaylistServ
                 insertStmt.setInt(2, songId);
 
                 int rowsAffected = insertStmt.executeUpdate();
-                if (rowsAffected > 0) {
+                if (rowsAffected > 0)
+                {
                     System.out.println("Song added successfully!");
-                } else {
+                } else
+                {
                     System.out.println("No rows were added.");
+                }
+
+            } catch (SQLException e)
+            {
+                System.err.println("SQL Error: " + e.getMessage());
+            } finally
+            {
+                con.close(); // Always close the connection
+            }
+        } else
+        {
+            System.err.println("Database connection is closed or invalid.");
+        }
+    }
+
+    public void removeSongFromPlaylist(String playlistName, String selectedSong) throws SQLException
+    {
+        // Extract Title and Artist from the selectedSong
+        String[] songParts = selectedSong.split(" - ");
+        if (songParts.length != 2)
+        {
+            System.err.println("Invalid song format: " + selectedSong);
+            return;
+        }
+
+        String songTitle = songParts[0];
+        String artist = songParts[1];
+
+        Connection con = DB.getConnection();
+        if (con != null && !con.isClosed())
+        {
+            try
+            {
+                String getPlaylistIdSQL = "SELECT PlaylistId FROM Playlists WHERE PlaylistName = ?";
+                PreparedStatement playlistStmt = con.prepareStatement(getPlaylistIdSQL);
+                playlistStmt.setString(1, playlistName);
+
+                ResultSet playlistRs = playlistStmt.executeQuery();
+                int playlistId = -1;
+                if (playlistRs.next())
+                {
+                    playlistId = playlistRs.getInt("PlaylistId");
+                }
+
+                if (playlistId == -1)
+                {
+                    System.err.println("Playlist not found: " + playlistName);
+                    return;
+                }
+
+                // Query to get the SongId using Title and Artist
+                String getSongIdSQL = "SELECT SongId FROM Songs WHERE Title = ? AND Artist = ?";
+                PreparedStatement songStmt = con.prepareStatement(getSongIdSQL);
+                songStmt.setString(1, songTitle);
+                songStmt.setString(2, artist);
+
+                ResultSet songRs = songStmt.executeQuery();
+                int songId = -1;
+                if (songRs.next())
+                {
+                    songId = songRs.getInt("SongId");
+                }
+
+                if (songId == -1)
+                {
+                    System.err.println("Song not found: " + songTitle + " by " + artist);
+                    return;
+
+                }
+                String removeSongSQL = "DELETE FROM PlaylistSongs WHERE PlaylistId = ? AND SongId = ?";
+                PreparedStatement removeStmt = con.prepareStatement(removeSongSQL);
+                removeStmt.setInt(1, playlistId);
+                removeStmt.setInt(2, songId);
+
+                int rowsAffected = removeStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Song removed successfully!");
+                } else {
+                    System.err.println("Song not found in playlist.");
                 }
 
             } catch (SQLException e) {
                 System.err.println("SQL Error: " + e.getMessage());
             } finally {
-                con.close(); // Always close the connection
+                con.close();
             }
         } else {
             System.err.println("Database connection is closed or invalid.");

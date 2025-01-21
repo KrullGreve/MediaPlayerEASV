@@ -786,44 +786,6 @@ public class HelloController {
 
 
     @FXML
-    private void onPlayListSelected()
-    {
-        lvAllPlayLists.getSelectionModel().getSelectedIndex();
-        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() != -1){
-            playListDuration();
-        }else {
-            System.out.println("no playlist selected" + lvAllPlayLists.getSelectionModel().getSelectedIndex());
-        }
-    }
-
-    private void playListDuration() {
-        int totalDuration = 0; // Variable to store the total duration
-
-        for (String song : songService.getAllSongs()) {
-            String[] parts = song.split(" - ");
-            if (parts.length > 0) {
-                String title = parts[0].trim(); // Extract and trim the title
-                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
-
-                try {
-                    // Convert MM:SS format to total seconds
-                    int duration = parseDuration(durationStr);
-                    totalDuration += duration;
-
-                } catch (NumberFormatException e) {
-                    System.out.println("Error parsing duration for: " + song);
-                }
-            } else {
-                System.out.println("Invalid song format: " + song);
-            }
-        }
-
-        // Convert total duration to MM:SS format and update label
-        fullDuration.setText(formatDuration(Duration.seconds(totalDuration)));
-        System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
-    }
-
-    @FXML
     private void onEditPlaylistClicked()
     {
         pendingEditPlaylist = lvAllPlayLists.getSelectionModel().getSelectedItem();
