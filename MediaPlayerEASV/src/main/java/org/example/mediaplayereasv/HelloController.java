@@ -569,6 +569,7 @@ public class HelloController {
                     autoNextSong();
                     durationAdder(titleOnly);
                     cbSearchBar.getEditor().clear();
+                    filteredItems.clear();
                 }
                 }
             } catch (URISyntaxException e) {
