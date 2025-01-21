@@ -702,22 +702,19 @@ public class HelloController {
         });
     }
     @FXML
-    private void OnplayListSelected(){
+    private void onPlayListSelected(){
 
         lvAllPlayLists.getSelectionModel().getSelectedIndex();
-        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() == -1){
+        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() != -1){
             playListDuration();
         }else {
-            System.out.println("no playlist selected" + lvAllPlayLists.getSelectionModel().getSelectedIndex());
+            System.out.println("no playlist selected " + lvAllPlayLists.getSelectionModel().getSelectedItem());
         }
 
     }
 
     //Pending Changes missing
     private void playListDuration() {
-
-
-
 
         int totalDuration = 0; // Variable to store the total duration
 
