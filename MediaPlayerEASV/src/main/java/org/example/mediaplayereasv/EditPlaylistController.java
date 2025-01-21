@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EditPlaylistController
@@ -69,7 +68,6 @@ public class EditPlaylistController
         {
             playlistService.addSongToPlaylist(playlistName, selectedSong);
             mainController.showAlert("Success", "Song added to playlist: " + selectedSong);
-
         }
         catch (SQLException e)
         {

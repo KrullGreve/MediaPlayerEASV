@@ -76,7 +76,6 @@ public class HelloController {
             OfflineLoadMusicFiles();
 
         }
-
     }
 
     /**
@@ -155,7 +154,6 @@ public class HelloController {
         }
 
     }
-
 
     /**
      * Checks if the media player is being used and makes so it start at zero seconds

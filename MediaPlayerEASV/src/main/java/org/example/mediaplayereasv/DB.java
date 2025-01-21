@@ -56,25 +56,19 @@ public class DB {
         }
     }
 
-    private static void connect() throws SQLException {
-        con = DriverManager.getConnection(
-                "jdbc:sqlserver://localhost:" + port + ";databaseName=" + databaseName, userName, password);
-        System.out.println("Connection established successfully.");
+    private static void connect() {
+        try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:"+port+";databaseName="+databaseName, userName, password);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
-    public static void getConnection() {
-        try {
-            if (con == null || con.isClosed()) {
-                connect();
-                System.out.println("Database connection initialized.");
-            } else {
-                System.out.println("Reusing existing connection.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Unable to establish a database connection: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException(e);
+    public static Connection getConnection() {
+        if (con == null) {
+            connect();
         }
+        return con;
     }
 
     private static void disconnect(){
