@@ -4,16 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400" prefWidth="600" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="org.example.mediaplayereasv.EditPlaylistController">
+<AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.EditPlaylistController">
     <children>
         <!-- Playlist Name Label -->
-        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;"/>
+        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;" />
 
         <!-- Available Songs List -->
         <VBox layoutX="20.0" layoutY="60.0" prefHeight="300" prefWidth="260">
             <Label style="-fx-font-size: 14;" text="Available Songs" />
             <ListView fx:id="lvAvailableSongs" />
-            <Button onAction="#onAddSong" text="Add Song to Playlist">
+            <Button onAction="#onAddSongClicked" text="Add Song to Playlist">
             <VBox.margin>
                <Insets top="5.0" />
             </VBox.margin></Button>

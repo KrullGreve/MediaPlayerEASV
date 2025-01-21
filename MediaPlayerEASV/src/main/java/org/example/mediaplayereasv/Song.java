@@ -3,15 +3,15 @@ package org.example.mediaplayereasv;
 public class Song
 {
     private int songID;
-    private String Title;
-    private String Artist;
+    private String title;
+    private String artist;
     private String Duration;
 
     public Song(int songID, String Title, String Artist)
     {
         this.songID = songID;
-        this.Title = Title;
-        this.Artist = Artist;
+        this.title = Title;
+        this.artist = Artist;
 
     }
 
@@ -22,17 +22,17 @@ public class Song
 
     public String getTitle()
     {
-        return Title;
+        return title;
     }
 
     public String getArtist()
     {
-        return Artist;
+        return artist;
     }
 
     @Override
     public String toString()
     {
-        return Title + " - " + Artist;
+        return title + " - " + artist;
     }
 }

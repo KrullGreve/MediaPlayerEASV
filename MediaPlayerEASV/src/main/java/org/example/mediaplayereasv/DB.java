@@ -55,14 +55,28 @@ public class DB {
             System.err.println("SQL Server Driver not found!");
         }
     }
-    private static void connect(){
-        try {
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:"+port+";databaseName="+databaseName,userName,password);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
 
+    private static void connect() throws SQLException {
+        con = DriverManager.getConnection(
+                "jdbc:sqlserver://localhost:" + port + ";databaseName=" + databaseName, userName, password);
+        System.out.println("Connection established successfully.");
     }
+
+    public static void getConnection() {
+        try {
+            if (con == null || con.isClosed()) {
+                connect();
+                System.out.println("Database connection initialized.");
+            } else {
+                System.out.println("Reusing existing connection.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Unable to establish a database connection: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     private static void disconnect(){
         try {
             con.close();
@@ -86,7 +100,7 @@ public class DB {
             if (rs!=null){
                 rs.close();
             }
-            connect();
+            getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             pendingData=true;
@@ -208,6 +222,7 @@ public class DB {
             connect();
             if (con != null && !con.isClosed()) {
                 disconnect();
+                System.out.println("Disconnected from the database.");
                 return true;
             }
         } catch (SQLException e) {

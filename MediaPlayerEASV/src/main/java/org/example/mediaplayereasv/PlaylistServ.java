@@ -1,13 +1,15 @@
 package org.example.mediaplayereasv;
 
+import javafx.event.ActionEvent;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PlaylistServ
 {
-
-    private Map<Integer, String> playlists = new HashMap<>();
+    private static Connection con;
 
     // Method to load all playlists and show them on the left ListView
     public ArrayList<String> getAllPlaylists()
@@ -40,31 +42,31 @@ public class PlaylistServ
         return DB.deleteSQL(sql);
     }
 
-    // Method to add a playlist to the map
-    public void addPlaylist(int playlistId, String playlistName) {
-        playlists.put(playlistId, playlistName);
-    }
+    public static void addSongToPlaylist(String playlistName, String songName) throws SQLException
+    {
+        String sql = "INSERT INTO PlaylistSongs (PlaylistId, SongId) " +
+                "SELECT p.PlaylistId, s.SongId FROM Playlists p, Songs s " +
+                "WHERE p.PlaylistName = ? AND s.Title = ?";
 
-    // Method to retrieve a playlist name by its ID
-    public String getPlaylistNameById(int playlistId) {
-        return playlists.get(playlistId);
-    }
+        DB.getConnection();
+        System.out.println("Connecting to database...");
 
-    // Method to get a playlist by its name (if needed)
-    public Integer getPlaylistIdByName(String playlistName) {
-        for (Map.Entry<Integer, String> entry : playlists.entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(playlistName)) {
-                return entry.getKey();
-            }
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, playlistName);
+        System.out.println("PlaylistName: " + playlistName);
+        ps.setString(2, songName);
+        System.out.println("SongName: " + songName);
+
+        int rowsAffected = ps.executeUpdate();
+        if(rowsAffected > 0)
+        {
+            System.out.println("Song added to playlist: " + songName);
         }
-        return null;  // Return null if no playlist found
-    }
-
-    // Method to display all playlists (just for testing purposes)
-    public void displayPlaylists() {
-        for (Map.Entry<Integer, String> entry : playlists.entrySet()) {
-            System.out.println("Playlist ID: " + entry.getKey() + ", Name: " + entry.getValue());
+        else
+        {
+            throw new SQLException("Song could not be added to playlist: ");
         }
-    }
 
+        ps.close();
+    }
 }

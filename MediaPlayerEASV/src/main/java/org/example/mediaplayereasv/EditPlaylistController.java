@@ -1,33 +1,30 @@
 package org.example.mediaplayereasv;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class EditPlaylistController
 {
     @FXML private Label lblPlaylistName;
-    @FXML private ListView<String> lvAvailableSongs, lvSongsInPlaylist, lvAllPlaylists;
-    @FXML private ListView<String> lvPlaylists;
+    @FXML private ListView<String> lvAvailableSongs, lvSongsInPlaylist;
 
-    private String currentPlaylistName;
+
+    private PlaylistServ playlistService = new PlaylistServ();
     private SongServ songService = new SongServ();
-
     private String playlistName;
-
+    private String songName;
+    private static Connection con;
 
     HelloController mainController = new HelloController();
+
 
     private ObservableList<String> availableSongList = FXCollections.observableArrayList();  // The list to hold Song objects
 
@@ -35,6 +32,7 @@ public class EditPlaylistController
     public void initialize()
     {
         setPlaylistName("");
+
 
         loadAvailableSongs();
         lvAvailableSongs.setItems(availableSongList);
@@ -44,10 +42,6 @@ public class EditPlaylistController
     {
         this.playlistName = playlistName;
         lblPlaylistName.setText("Editing Playlist: " + playlistName);
-        if(playlistName != null)
-        {
-            System.out.println("Current playlist: " + playlistName);
-        }
     }
 
     private void loadAvailableSongs()
@@ -56,9 +50,30 @@ public class EditPlaylistController
 
     }
 
-    @FXML
-    private void onAddSong()
+    private void loadPlaylistSongs()
     {
 
+    }
+
+    @FXML
+    private void onAddSongClicked(ActionEvent event)
+    {
+        String selectedSong = lvAvailableSongs.getSelectionModel().getSelectedItem();
+
+        if(selectedSong == null)
+        {
+            mainController.showAlert("Error", "Please select a song to add. ");
+            return;
+        }
+        try
+        {
+            playlistService.addSongToPlaylist(playlistName, selectedSong);
+            mainController.showAlert("Success", "Song added to playlist: " + selectedSong);
+
+        }
+        catch (SQLException e)
+        {
+            mainController.showAlert("Error", e.getMessage());
+        }
     }
 }

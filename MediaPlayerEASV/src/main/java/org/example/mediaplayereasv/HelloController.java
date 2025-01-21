@@ -66,7 +66,7 @@ public class HelloController {
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
 
         if(DB.testConnection()) {
-            System.out.println("Connected to DB");
+            System.out.println("Loading Database for Songs and Playlists");
 
             loadPlaylists();
             loadSongs();
@@ -617,7 +617,7 @@ public class HelloController {
      * @param title
      * @param message
      */
-    private void showAlert(String title, String message) {
+    public void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -732,15 +732,6 @@ public class HelloController {
         }
     }
 
-
-    private String getPlaylistName()
-    {
-        String playlistName = pendingEditPlaylist;
-        System.out.println(playlistName);
-
-        return playlistName;
-    }
-
     private void playListDuration() {
         int totalDuration = 0; // Variable to store the total duration
 
@@ -800,6 +791,5 @@ public class HelloController {
         {
             showAlert("Error", "Playlist Not Found");
         }
-
     }
 }
