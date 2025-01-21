@@ -64,18 +64,21 @@ public class HelloController {
 
         // Set default playlist on the right Listview
         lvAllPlayLists.setItems(FXCollections.observableArrayList("All Songs"));
-
+        lvAllPlayLists.getSelectionModel().select(0);
         if(DB.testConnection()) {
             System.out.println("Loading Database for Songs and Playlists");
 
             loadPlaylists();
             loadSongs();
-
+            playListDuration();
         }else{
             System.out.println("offline connection");
             OfflineLoadMusicFiles();
 
         }
+        refreshPlaylists();
+
+
     }
 
     /**
@@ -170,6 +173,7 @@ public class HelloController {
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(nextURL.toURI().toString()));
                 }
                 mediaPlayer.play();
+                autoNextSong();
             }catch (URISyntaxException e){
                 System.out.println("Error loading music files: " + e.getMessage());
             }
@@ -298,6 +302,7 @@ public class HelloController {
                     durationAdder(titleOnly);
 
                     mediaPlayer.play();
+                    autoNextSong();
                 } else {
                     System.out.println("Song file not found: " + titleOnly);
                 }
@@ -577,18 +582,29 @@ public class HelloController {
                 String sbResult = lvCurrentPlayList.getSelectionModel().getSelectedItem();
                 String titleOnly = sbResult.split(" - ")[0];
                 URL searchBarURl = getClass().getResource("/Music/" + titleOnly + ".mp3");
-                if (searchBarURl != null) {
+
+                if (searchBarURl != null)
+                {
+                    if(mediaPlayer != null)
+                    {
+                        mediaPlayer.stop();
+                        mediaPlayer.seek(Duration.ZERO);
+                    }
                     mediaPlayer = new MediaPlayer(new javafx.scene.media.Media(searchBarURl.toURI().toString()));
+
+                    if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                        mediaPlayer.stop();
+                        mediaPlayer.seek(Duration.ZERO);
+                    } else {
+                        mediaPlayer.play();
+                    }
                     songNameDisplay();
                     imageLoader();
-                }
-                if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                    mediaPlayer.stop();
-                }else{
+                    autoNextSong();
                     durationAdder(titleOnly);
-                    mediaPlayer.play();
+                    cbSearchBar.getEditor().clear();
+                    filteredItems.clear();
                 }
-
                 }
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
@@ -718,6 +734,56 @@ public class HelloController {
             mediaPlayer.setVolume(volume);
         }
     }
+
+    private void autoNextSong() {
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                nextSong();
+            }
+        });
+    }
+    @FXML
+    private void onPlayListSelected(){
+
+        lvAllPlayLists.getSelectionModel().getSelectedIndex();
+        if(lvAllPlayLists.getSelectionModel().getSelectedIndex() != -1){
+            playListDuration();
+        }else {
+            System.out.println("no playlist selected " + lvAllPlayLists.getSelectionModel().getSelectedItem());
+        }
+
+    }
+
+    //Pending Changes missing
+    private void playListDuration() {
+
+        int totalDuration = 0; // Variable to store the total duration
+
+        for (String song : songService.getAllSongs()) {
+            String[] parts = song.split(" - ");
+            if (parts.length > 0) {
+                String title = parts[0].trim(); // Extract and trim the title
+                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+
+                try {
+                    // Convert MM:SS format to total seconds
+                    int duration = parseDuration(durationStr);
+                    totalDuration += duration;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing duration for: " + song);
+                }
+            } else {
+                System.out.println("Invalid song format: " + song);
+            }
+        }
+
+        // Convert total duration to MM:SS format and update label
+        fullDuration.setText(formatDuration(Duration.seconds(totalDuration)));
+        System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
+    }
+
 
     @FXML
     private void onPlayListSelected()

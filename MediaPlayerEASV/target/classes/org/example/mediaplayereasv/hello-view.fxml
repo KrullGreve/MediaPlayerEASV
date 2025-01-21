@@ -8,9 +8,9 @@
 
 <BorderPane fx:id="myBorderPane" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" styleClass="custom-border-pane" stylesheets="@styleSheetUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
     <bottom>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <children>
-            <Label fx:id="songDisplay" alignment="CENTER" prefWidth="1000000.0" text="Current Song">
+            <Label fx:id="songDisplay" alignment="CENTER" prefWidth="1000000.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -18,7 +18,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" text="Duration: 00/00" />
+                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" />
                 <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
                     <children>
                         <Slider fx:id="mySliderDuration" blockIncrement="1.0" onMouseReleased="#onSliderDragged" HBox.hgrow="ALWAYS">
@@ -30,7 +30,7 @@
                         <Insets left="15.0" right="15.0" />
                     </padding>
                 </HBox>
-            <GridPane>
+            <GridPane alignment="CENTER_LEFT">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -129,9 +129,9 @@
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin></ListView>
-            <HBox alignment="CENTER" prefHeight="15.0" prefWidth="278.0">
+            <HBox alignment="CENTER">
                <children>
-                  <Label fx:id="fullDuration" alignment="CENTER" textAlignment="CENTER" />
+                  <Label fx:id="fullDuration" />
                </children>
             </HBox>
          </children>
