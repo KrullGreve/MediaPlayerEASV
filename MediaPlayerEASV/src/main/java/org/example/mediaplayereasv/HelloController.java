@@ -317,7 +317,6 @@ public class HelloController {
 
     /**
      * method for adding the duration of the song to the slider and label
-     * @param titleOnly
      */
     private void durationAdder(String titleOnly) {
         String durationStr = songService.getSongDuration(titleOnly);

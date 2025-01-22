@@ -133,6 +133,12 @@
                <children>
                   <Label fx:id="fullDuration" />
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
@@ -174,14 +180,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <GridPane.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </GridPane.margin></ImageView>
-            <Label fx:id="myLabelTitel" text="Morning dew" GridPane.halignment="CENTER">
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="25.0" />
+               </GridPane.margin>
+               <image>
+                  <Image url="@../../../bntImages/imgIconTabbyTunes.png" />
+               </image></ImageView>
+            <Label fx:id="myLabelTitel" GridPane.halignment="CENTER">
                <font>
                   <Font size="24.0" />
-               </font></Label>
+               </font>
+               <graphic>
+                  <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../bntImages/imgLogoTabbyTunes.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Label>
             <ComboBox fx:id="cbSearchBar" prefWidth="10000.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

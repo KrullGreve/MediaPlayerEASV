@@ -3,15 +3,22 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400" prefWidth="600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.EditPlaylistController">
+<AnchorPane prefHeight="400" prefWidth="600" styleClass="uglyAssAnchorPane" stylesheets="@styleSheetUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.EditPlaylistController">
     <children>
         <!-- Playlist Name Label -->
-        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;" />
+        <Label fx:id="lblPlaylistName" layoutX="20" layoutY="20" style="-fx-font-size: 18;" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
 
         <!-- Available Songs List -->
         <VBox alignment="CENTER" layoutX="20.0" layoutY="60.0" prefHeight="300" prefWidth="260">
-            <Label style="-fx-font-size: 14;" text="Available Songs" />
+            <Label style="-fx-font-size: 14;" text="Available Songs" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font></Label>
             <ListView fx:id="lvAvailableSongs" />
             <Button onAction="#onAddSongClicked" text="Add Song">
             <VBox.margin>
@@ -21,7 +28,10 @@
 
         <!-- Songs in Playlist -->
         <VBox alignment="CENTER" layoutX="320.0" layoutY="60.0" prefHeight="300" prefWidth="260">
-            <Label style="-fx-font-size: 14;" text="Songs in Playlist" />
+            <Label style="-fx-font-size: 14;" text="Songs in Playlist" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font></Label>
             <ListView fx:id="lvSongsInPlaylist" />
             <Button onAction="#onRemoveSongClicked" text="Remove Song">
             <VBox.margin>
