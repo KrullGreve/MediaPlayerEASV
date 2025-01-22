@@ -221,7 +221,7 @@ public class HelloController {
 
                         System.out.println("Valid songs being added to ListView: " + validSongs); // Debugging
                         Platform.runLater(() -> {
-                            lvCurrentPlayList.setItems(FXCollections.observableArrayList(getCurrentPlayList()));
+                            lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
                             lvCurrentPlayList.refresh();
                             setCbSearchBar();
 
