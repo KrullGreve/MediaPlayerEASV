@@ -75,7 +75,7 @@
                                   <graphic>
                                       <ImageView cache="true" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" smooth="false">
                                           <image>
-                                              <Image url="@../../../bntImages/bntplay.png" />
+                                              <Image url="@../../../bntImages/bntPlay.png" />
                                           </image>
                                       </ImageView>
                                   </graphic>

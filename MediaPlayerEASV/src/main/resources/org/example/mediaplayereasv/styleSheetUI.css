@@ -65,3 +65,7 @@
     -fx-text-fill: white;
 }
 
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #ff9e60;
+    -fx-text-fill: black;
+}
