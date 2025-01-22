@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="myBorderPane" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" styleClass="custom-border-pane" stylesheets="@styleSheetUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mediaplayereasv.HelloController">
+    <bottom>
+        <VBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <children>
+            <Label fx:id="songDisplay" alignment="CENTER" prefWidth="1000000.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+                  <Label fx:id="myDuration" alignment="CENTER" prefWidth="100000.0" />
+                <HBox alignment="CENTER" prefHeight="45.0" prefWidth="850.0">
+                    <children>
+                        <Slider fx:id="mySliderDuration" blockIncrement="1.0" onMouseReleased="#onSliderDragged" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets bottom="15.0" />
+                            </HBox.margin></Slider>
+                    </children>
+                    <padding>
+                        <Insets left="15.0" right="15.0" />
+                    </padding>
+                </HBox>
+            <GridPane alignment="CENTER_LEFT">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1">
+                          <children>
+                              <Button fx:id="bntShuffel" mnemonicParsing="false" onAction="#shufflePlaylist" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntShuffel.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntStop" mnemonicParsing="false" onAction="#onStopPlay" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntStop.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntBack" mnemonicParsing="false" onAction="#previousSong" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntnext.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntPlay" cache="true" mnemonicParsing="false" onAction="#onPausePlay" prefHeight="50.0" prefWidth="60.0" textAlignment="CENTER">
+                                  <graphic>
+                                      <ImageView cache="true" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" smooth="false">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntPlay.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntNext" mnemonicParsing="false" onAction="#nextSong" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntnext.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntRepeat" mnemonicParsing="false" onAction="#onRepeatEnable" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/bntRepeat.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                              <Button fx:id="bntMute" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onMuteToggle" prefHeight="40.0" prefWidth="40.0">
+                                  <graphic>
+                                      <ImageView fx:id="bntMuteIcon" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                              <Image url="@../../../bntImages/sVolume.png" />
+                                          </image>
+                                      </ImageView>
+                                  </graphic>
+                              </Button>
+                          </children>
+                          <GridPane.margin>
+                              <Insets bottom="15.0" top="15.0" />
+                          </GridPane.margin>
+                      </HBox>
+                   <Slider fx:id="mySliderVolume" max="100" min="0" onMouseReleased="#onVolumeChange" showTickLabels="true" value="50" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets top="20.0" />
+                     </GridPane.margin></Slider>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" />
+               </padding>
+            </GridPane>
+            </children>
+        </VBox>
+    </bottom>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="lvCurrentPlayList" onMouseClicked="#onSongSelected" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin></ListView>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label fx:id="fullDuration" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="lvAllPlayLists" editable="true" onMouseClicked="#onPlayListSelected" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </ListView>
+             <StackPane fx:id="stackPaneButtons" maxHeight="40.0" maxWidth="248.0" prefHeight="38.0" prefWidth="248.0">
+                 <HBox fx:id="HBoxMainButtons" alignment="CENTER" spacing="10">
+                     <children>
+                         <Button fx:id="btnAddPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onAddPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="+" />
+                         <Button fx:id="btnDeletePlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onDeletePlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="-" />
+                         <Button fx:id="btnEditPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onEditPlaylistClicked" prefHeight="40.0" prefWidth="40.0" text="📝" />
+                     </children>
+                 </HBox>
+                 <HBox fx:id="HBoxEditMode" alignment="CENTER" spacing="10" visible="false">
+                     <children>
+                         <TextField fx:id="tfPlaylistName" prefHeight="36.0" prefWidth="147.0" promptText="Enter Playlist Name" />
+                         <Button fx:id="btnConfirmPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onConfirmPlaylist" prefHeight="40.0" prefWidth="40.0" text="✔" />
+                         <Button fx:id="btnCancelPlaylist" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onCancelPlaylist" prefHeight="40.0" prefWidth="40.0" text="❌" />
+                     </children>
+                 </HBox>
+             </StackPane>
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="25.0" />
+               </GridPane.margin>
+               <image>
+                  <Image url="@../../../bntImages/imgIconTabbyTunes.png" />
+               </image>
+               <effect>
+                  <DropShadow height="50.0" radius="24.5" width="50.0" />
+               </effect></ImageView>
+            <Label fx:id="myLabelTitel" mouseTransparent="true" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView blendMode="EXCLUSION" depthTest="DISABLE" fitHeight="300.0" fitWidth="250.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../bntImages/imgLogoTabbyTunes.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="30.0" radius="17.0" width="40.0" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="NONE" />
+               </cursor></Label>
+            <ComboBox fx:id="cbSearchBar" prefWidth="10000.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </GridPane.margin></ComboBox>
+            <Button fx:id="bntSearch" mnemonicParsing="false" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="connectionStatus" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </top>
+   <center>
+      <ImageView fx:id="ivMainImage" fitHeight="400.0" fitWidth="500.0" pickOnBounds="true" />
+   </center>
+</BorderPane>

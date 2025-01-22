@@ -10,6 +10,11 @@ module org.example.mediaplayereasv {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
+    requires javafx.media;
+    requires sqljdbc4;
+    requires java.desktop;
+    requires jdk.jfr;
 
     opens org.example.mediaplayereasv to javafx.fxml;
     exports org.example.mediaplayereasv;
