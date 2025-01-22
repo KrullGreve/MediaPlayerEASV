@@ -29,9 +29,6 @@ import java.util.Objects;
 
 public class HelloController {
 
-
-    public String onPlaylistSelected;
-    public String getPlaylistName;
     private double previousVolume = 0.5; // Stores last volume before mute
 
     @FXML private ImageView bntMuteIcon;
@@ -71,12 +68,8 @@ public class HelloController {
             loadPlaylists();
             loadSongs();
             playListDuration();
-        }else{
-            System.out.println("offline connection");
-            OfflineLoadMusicFiles();
-
         }
-        refreshPlaylists();
+            refreshPlaylists();
 
 
     }
@@ -228,7 +221,7 @@ public class HelloController {
 
                         System.out.println("Valid songs being added to ListView: " + validSongs); // Debugging
                         Platform.runLater(() -> {
-                            lvCurrentPlayList.setItems(FXCollections.observableArrayList(validSongs));
+                            lvCurrentPlayList.setItems(FXCollections.observableArrayList(getCurrentPlayList()));
                             lvCurrentPlayList.refresh();
                             setCbSearchBar();
 
@@ -244,34 +237,6 @@ public class HelloController {
             }
         }
     }
-
-    /**
-     * load the song only from the files and displays them
-     */
-    private void OfflineLoadMusicFiles() {
-        URL offlineMusicFolderUrl = getClass().getResource("/Music");
-        if (offlineMusicFolderUrl != null) {
-            try {
-                File musicFolder = Paths.get(offlineMusicFolderUrl.toURI()).toFile();
-
-                if (musicFolder.exists() && musicFolder.isDirectory()) {
-                    File[] musicFiles = musicFolder.listFiles();
-
-                    if (musicFiles != null) {
-                        for (File file : musicFiles) {
-                            if (file.isFile() && file.getName().endsWith(".mp3")) {
-                                // Add file names to the ListView
-                                lvCurrentPlayList.getItems().add(file.getName());
-                            }
-                        }
-                    }
-                }
-            } catch (URISyntaxException e) {
-                System.out.println("Error loading music files: " + e.getMessage());
-            }
-        }
-    }
-
     /**
      * OnSongSelected is a mouse on click event that plays the song the mouse click on and makes the mediaPlayer
      * And play the song and makes it so listview has an available index for the skip for and other functions
@@ -611,6 +576,7 @@ public class HelloController {
         });
     }
 
+
     /**
      * Shuffle the playlist via collections and refreshes after
      */
@@ -735,23 +701,40 @@ public class HelloController {
     }
 
     private void autoNextSong() {
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                nextSong();
-            }
-        });
+        mediaPlayer.setOnEndOfMedia(this::nextSong);
     }
     @FXML
     private void onPlayListSelected(){
-
+        ObservableList<String> playListItems = FXCollections.observableArrayList(getCurrentPlayList());
+        lvCurrentPlayList.setItems(playListItems);
         lvAllPlayLists.getSelectionModel().getSelectedIndex();
         if(lvAllPlayLists.getSelectionModel().getSelectedIndex() != -1){
             playListDuration();
         }else {
             System.out.println("no playlist selected " + lvAllPlayLists.getSelectionModel().getSelectedItem());
         }
+        lvCurrentPlayList.refresh();
 
+    }
+    public ArrayList<String> getCurrentPlayList()
+    {
+        ArrayList<String> songsInPlaylist = new ArrayList<>();
+        DB.selectSQL("SELECT s.Title, s.Artist FROM Songs s " +
+                "INNER JOIN PlaylistSongs ps ON s.SongId = ps.SongId " +
+                "INNER JOIN Playlists p ON ps.PlaylistId = p.PlaylistId " +
+                "WHERE p.PlaylistName = '" + lvAllPlayLists.getSelectionModel().getSelectedItem() + "'");
+
+        while(true)
+        {
+            String title = DB.getData();
+            if(title.equals(DB.NOMOREDATA))
+            {
+                break;
+            }
+            String artist = DB.getData();
+            songsInPlaylist.add(title + " - " + artist);
+        }
+        return songsInPlaylist;
     }
 
     //Pending Changes missing
@@ -760,21 +743,25 @@ public class HelloController {
         int totalDuration = 0; // Variable to store the total duration
 
         for (String song : songService.getAllSongs()) {
-            String[] parts = song.split(" - ");
-            if (parts.length > 0) {
-                String title = parts[0].trim(); // Extract and trim the title
-                String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+            if(lvCurrentPlayList.getItems().contains(song)) {
 
-                try {
-                    // Convert MM:SS format to total seconds
-                    int duration = parseDuration(durationStr);
-                    totalDuration += duration;
 
-                } catch (NumberFormatException e) {
-                    System.out.println("Error parsing duration for: " + song);
+                String[] parts = song.split(" - ");
+                if (parts.length > 0) {
+                    String title = parts[0].trim(); // Extract and trim the title
+                    String durationStr = songService.getSongDuration(title); // Get duration in MM:SS format
+
+                    try {
+                        // Convert MM:SS format to total seconds
+                        int duration = parseDuration(durationStr);
+                        totalDuration += duration;
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error parsing duration for: " + song);
+                    }
+                } else {
+                    System.out.println("Invalid song format: " + song);
                 }
-            } else {
-                System.out.println("Invalid song format: " + song);
             }
         }
 

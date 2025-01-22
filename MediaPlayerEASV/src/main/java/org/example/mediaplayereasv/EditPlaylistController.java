@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class EditPlaylistController
 {
+
+
     @FXML private Label lblPlaylistName;
     @FXML private ListView<String> lvAvailableSongs, lvSongsInPlaylist;
 
@@ -59,7 +61,7 @@ public class EditPlaylistController
         playlistSongs.addAll(getSongsInPlaylist());
     }
 
-    private ArrayList<String> getSongsInPlaylist()
+    public ArrayList<String> getSongsInPlaylist()
     {
         ArrayList<String> songsInPlaylist = new ArrayList<>();
         DB.selectSQL("SELECT s.Title, s.Artist FROM Songs s " +
