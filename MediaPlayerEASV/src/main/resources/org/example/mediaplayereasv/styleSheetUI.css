@@ -49,3 +49,17 @@
 .slider .track {
     -fx-background-color: #797979;
 }
+
+.list-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+
+.list-cell:even {
+
+    -fx-cell-hover-color: white;
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
+.list-cell:filled:hover {
+    -fx-background-color: #00619f;
+    -fx-text-fill: white;
+}

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -180,24 +182,33 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+            <ImageView blendMode="EXCLUSION" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="25.0" />
                </GridPane.margin>
                <image>
                   <Image url="@../../../bntImages/imgIconTabbyTunes.png" />
-               </image></ImageView>
-            <Label fx:id="myLabelTitel" GridPane.halignment="CENTER">
+               </image>
+               <effect>
+                  <DropShadow height="50.0" radius="24.5" width="50.0" />
+               </effect></ImageView>
+            <Label fx:id="myLabelTitel" mouseTransparent="true" GridPane.halignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView blendMode="EXCLUSION" depthTest="DISABLE" fitHeight="300.0" fitWidth="250.0" preserveRatio="true">
                      <image>
                         <Image url="@../../../bntImages/imgLogoTabbyTunes.png" />
                      </image>
+                     <effect>
+                        <DropShadow height="30.0" radius="17.0" width="40.0" />
+                     </effect>
                   </ImageView>
-               </graphic></Label>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="NONE" />
+               </cursor></Label>
             <ComboBox fx:id="cbSearchBar" prefWidth="10000.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
