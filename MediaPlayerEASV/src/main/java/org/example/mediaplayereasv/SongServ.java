@@ -6,8 +6,10 @@ public class SongServ
 {
 
 
-
-    // Method to get All songs from our database
+    /**
+     * SELECT All songs from our database and store it in an ArrayList
+     * @return
+     */
     public ArrayList<String> getAllSongs() {
         ArrayList<String> songs = new ArrayList<>();
         DB.selectSQL("SELECT Title, Artist FROM Songs");
@@ -24,6 +26,12 @@ public class SongServ
 
         return songs;
     }
+
+    /**
+     * SELECT duration from our database from a given song
+     * @param songTitle
+     * @return
+     */
     public String getSongDuration(String songTitle)
     {
         String sql = "SELECT Duration FROM Songs WHERE Title = '" + songTitle + "'";

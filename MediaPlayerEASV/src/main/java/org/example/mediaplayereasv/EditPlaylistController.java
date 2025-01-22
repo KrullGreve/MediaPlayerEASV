@@ -38,6 +38,10 @@ public class EditPlaylistController
     }
 
 
+    /**
+     * Sets the playlist Name to the one selected from the Edit button
+     * @param playlistName
+     */
     public void setPlaylistName(String playlistName)
     {
         this.playlistName = playlistName;
@@ -48,6 +52,9 @@ public class EditPlaylistController
 
     }
 
+    /**
+     * Fills the lvAvailableSongs listview with all songs in our database
+     */
     private void loadAvailableSongs()
     {
         availableSongList.clear();
@@ -55,12 +62,21 @@ public class EditPlaylistController
 
     }
 
+    /**
+     * Fills the lvSongsInPlaylist listview with songs from our
+     * database bridge table that matches IDs with the chosen playlist
+     * which the getSongsInPlaylist method finds
+     */
     private void loadPlaylistSongs()
     {
         playlistSongs.clear();
         playlistSongs.addAll(getSongsInPlaylist());
     }
 
+    /**
+     * Runs a query and stores the result in an Arraylist
+     * @return
+     */
     public ArrayList<String> getSongsInPlaylist()
     {
         ArrayList<String> songsInPlaylist = new ArrayList<>();
@@ -82,6 +98,10 @@ public class EditPlaylistController
         return songsInPlaylist;
     }
 
+    /**
+     * Select a song to remove with the button action, then refreshes the listview
+     * @throws SQLException
+     */
     @FXML
     private void onRemoveSongClicked() throws SQLException
     {
@@ -99,6 +119,11 @@ public class EditPlaylistController
     }
 
 
+    /**
+     * Select a song to add from lvAvailableSongs then use the button action to add it
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     private void onAddSongClicked(ActionEvent event) throws SQLException
     {
@@ -113,6 +138,5 @@ public class EditPlaylistController
         mainController.showAlert("Success", "Song added to playlist: " + selectedSong);
 
         loadPlaylistSongs();
-
     }
 }

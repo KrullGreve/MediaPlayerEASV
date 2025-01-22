@@ -379,12 +379,18 @@ public class HelloController {
     }
 
 
+    /**
+     * Swaps from the Main HBox to the Edit HBox
+     */
     private void switchToEditMode()
     {
         HBoxMainButtons.setVisible(false);
         HBoxEditMode.setVisible(true);
     }
 
+    /**
+     * Swaps from the Edit HBox to the Main HBox
+     */
     private void switchToMainMode()
     {
         HBoxMainButtons.setVisible(true);
@@ -443,10 +449,6 @@ public class HelloController {
 
     /**
      * Handles the action of the confirmation button.
-     * This method checks if the symbol is equal to the one used for deleting or for adding,
-     * If it is associated with deleting, it deletes, if not it adds a playlist.
-     * Displays an error if you haven't selected a playlist
-     * Makes it so we can reuse the same button for multiple functions.
      */
     @FXML
     private void onConfirmPlaylist() {
@@ -703,6 +705,11 @@ public class HelloController {
     private void autoNextSong() {
         mediaPlayer.setOnEndOfMedia(this::nextSong);
     }
+
+    /**
+     * Uses getCurrentPlaylist to store the query result in an observable list
+     * and gets the songs from the playlist to show in the right listview
+     */
     @FXML
     private void onPlayListSelected(){
         ObservableList<String> playListItems = FXCollections.observableArrayList(getCurrentPlayList());
@@ -716,6 +723,11 @@ public class HelloController {
         lvCurrentPlayList.refresh();
 
     }
+
+    /**
+     * Arraylist to store the songs in selected playlist
+     * @return
+     */
     public ArrayList<String> getCurrentPlayList()
     {
         ArrayList<String> songsInPlaylist = new ArrayList<>();
@@ -737,7 +749,9 @@ public class HelloController {
         return songsInPlaylist;
     }
 
-    //Pending Changes missing
+    /**
+     * Puts the total duration of the playlist in a label
+     */
     private void playListDuration() {
 
         int totalDuration = 0; // Variable to store the total duration
@@ -770,7 +784,9 @@ public class HelloController {
         System.out.println("Total duration of the selected playlist: " + formatDuration(Duration.seconds(totalDuration)));
     }
 
-
+    /**
+     * Stores a selected playlist from the lvAllPlaylist listview and opens the EditPlaylist scene
+     */
     @FXML
     private void onEditPlaylistClicked()
     {

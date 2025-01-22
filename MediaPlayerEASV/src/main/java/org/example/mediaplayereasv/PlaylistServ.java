@@ -12,7 +12,10 @@ public class PlaylistServ
 {
     private static Connection con;
 
-    // Method to load all playlists and show them on the left ListView
+    /**
+     * Stores all playlists in an Arraylist
+     * @return
+     */
     public ArrayList<String> getAllPlaylists()
     {
         ArrayList<String> playlists = new ArrayList<>();
@@ -29,23 +32,42 @@ public class PlaylistServ
         return playlists;
     }
 
-    // Method to create playlist with the + Button
+    /**
+     * SQL query to INSERT a playlist into our database
+     * @param name
+     * @return
+     */
     public boolean createPlaylist(String name)
     {
         String sql = "INSERT INTO Playlists (PlaylistName) VALUES ('" + name + "')";
         return DB.insertSQL(sql);
     }
 
-    // Method to delete a playlist by name which is taken from the listview through a mouse click
+    /**
+     * SQL Query to DELETE a playlist from our database
+     * @param name
+     * @return
+     */
     public boolean deletePlaylist(String name)
     {
         String sql = "DELETE FROM Playlists WHERE PlaylistName = '" + name + "'";
         return DB.deleteSQL(sql);
     }
 
+    /**
+     * Creates an Array to store the Title and Artist so it matches in our database.
+     * 3 steps of SQL Queries,
+     * 1st get the Song ID where Artist and Title matches
+     * 2nd get the Playlist ID where the Playlist Name matches
+     * 3rd INSERT into our bridge table matching the two ID's
+     *
+     * @param playlistName
+     * @param songWithArtist
+     * @throws SQLException
+     */
     public void addSongToPlaylist(String playlistName, String songWithArtist) throws SQLException
     {
-        Connection con = DB.getConnection();  // Get the database connection
+        Connection con = DB.getConnection();
 
         if (con != null && !con.isClosed())
         {
@@ -60,40 +82,40 @@ public class PlaylistServ
                 String songTitle = parts[0].trim();
                 String artistName = parts[1].trim();
 
-                // Step 2: Get the SongId
+                // Get the SongId
                 String getSongIdQuery = "SELECT SongId FROM Songs WHERE Title = ? AND Artist = ?";
                 PreparedStatement getSongIdStmt = con.prepareStatement(getSongIdQuery);
                 getSongIdStmt.setString(1, songTitle);
                 getSongIdStmt.setString(2, artistName);
                 ResultSet songIdResult = getSongIdStmt.executeQuery();
 
-                int songId = -1; // Default value in case no result is found
+                int songId = -1;
                 if (songIdResult.next())
                 {
                     songId = songIdResult.getInt("SongId");
                 } else
                 {
                     System.err.println("Song not found: " + songWithArtist);
-                    return; // Exit if the song is not found
+                    return;
                 }
 
-                // Step 3: Get the PlaylistId
+                // Get the PlaylistId
                 String getPlaylistIdQuery = "SELECT PlaylistId FROM Playlists WHERE PlaylistName = ?";
                 PreparedStatement getPlaylistIdStmt = con.prepareStatement(getPlaylistIdQuery);
                 getPlaylistIdStmt.setString(1, playlistName);
                 ResultSet playlistIdResult = getPlaylistIdStmt.executeQuery();
 
-                int playlistId = -1; // Default value in case no result is found
+                int playlistId = -1;
                 if (playlistIdResult.next())
                 {
                     playlistId = playlistIdResult.getInt("PlaylistId");
                 } else
                 {
                     System.err.println("Playlist not found: " + playlistName);
-                    return; // Exit if the playlist is not found
+                    return;
                 }
 
-                // Step 4: Insert into PlaylistSongs
+                // Insert into PlaylistSongs
                 String insertQuery = "INSERT INTO PlaylistSongs (PlaylistId, SongId) VALUES (?, ?)";
                 PreparedStatement insertStmt = con.prepareStatement(insertQuery);
                 insertStmt.setInt(1, playlistId);
@@ -113,7 +135,7 @@ public class PlaylistServ
                 System.err.println("SQL Error: " + e.getMessage());
             } finally
             {
-                con.close(); // Always close the connection
+                con.close();
             }
         } else
         {
@@ -121,6 +143,17 @@ public class PlaylistServ
         }
     }
 
+    /**
+     * Creates an Array to store the Title and Artist so it matches in our database.
+     * 3 steps of SQL Queries,
+     * 1st get the Song ID where Artist and Title matches
+     * 2nd get the Playlist ID where the Playlist Name matches
+     * 3rd DELETE the ID's in the bridge table if they match
+     *
+     * @param playlistName
+     * @param selectedSong
+     * @throws SQLException
+     */
     public void removeSongFromPlaylist(String playlistName, String selectedSong) throws SQLException
     {
         // Extract Title and Artist from the selectedSong

@@ -226,7 +226,7 @@ public class DB {
         return false;
     }
 
-    // To test if you have connection to the database - Will be removed in a later build
+    // To test if you have connection to the database
     public static boolean testConnection() {
         try {
             connect();
